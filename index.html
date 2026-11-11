@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InfoDébutant - Apprendre les bases de l'ordinateur</title>
+  <meta name="description" content="Plateforme d'apprentissage gratuite et interactive pour maîtriser les bases de l'ordinateur : matériel, souris, clavier, bureau Windows, fichiers et Internet.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Barre de navigation supérieure -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <button class="btn-menu-toggle" id="btn-mobile-menu" aria-label="Ouvrir le menu">☰</button>
+        <a href="#home" class="logo" data-target-section="home">
+          <div class="logo-icon">💻</div>
+          <span>InfoDébutant</span>
+        </a>
+      </div>
+
+      <!-- Outils d'accessibilité -->
+      <div class="nav-tools">
+        <div class="accessibility-bar" title="Ajuster la taille du texte">
+          <button class="btn-icon btn-font-size active" id="btn-font-normal" title="Taille normale">A</button>
+          <button class="btn-icon btn-font-size" id="btn-font-large" title="Grande taille">A+</button>
+          <button class="btn-icon btn-font-size" id="btn-font-xlarge" title="Très grande taille">A++</button>
+        </div>
+        <button class="btn-icon" id="btn-theme-toggle" title="Changer le thème">🌙 Thème sombre</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Disposition principale -->
+  <div class="app-layout">
+    
+    <!-- Sidebar de navigation -->
+    <aside class="sidebar">
+      <!-- Widget de progression -->
+      <div class="progress-widget">
+        <div class="progress-header">
+          <span>Progression globale</span>
+          <span id="global-progress-label">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="global-progress-bar"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sidebar-title">Parcours d'apprentissage</div>
+        <ul class="module-nav-list">
+          <li>
+            <a class="module-link active" data-target-section="home">
+              <span class="module-icon">🏠</span>
+              <span>Accueil</span>
+            </a>
+          </li>
+          <li>
+            <a class="module-link" data-target-section="mod1">
+              <span class="module-icon">📦</span>
+              <span>1. Anatomie & Matériel</span>
+              <span class="module-status">1</span>
+            </a>
+          </li>
+          <li>
+            <a class="module-link" data-target-section="mod3">
+              <span class="module-icon">🖥️</span>
+              <span>2. Présentation du Bureau</span>
+              <span class="module-status">2</span>
+            </a>
+          </li>
+          <li>
+            <a class="module-link" data-target-section="mod2">
+              <span class="module-icon">🖱️</span>
+              <span>3. Souris & Clavier</span>
+              <span class="module-status">3</span>
+            </a>
+          </li>
+          <li>
+            <a class="module-link" data-target-section="mod4">
+              <span class="module-icon">📁</span>
+              <span>4. Fichiers & Dossiers</span>
+              <span class="module-status">4</span>
+            </a>
+          </li>
+          <li>
+            <a class="module-link" data-target-section="mod5">
+              <span class="module-icon">🌐</span>
+              <span>5. Internet & Sécurité</span>
+              <span class="module-status">5</span>
+            </a>
+          </li>
+          <li>
+            <a class="module-link" data-target-section="quiz">
+              <span class="module-icon">📝</span>
+              <span>6. Quiz d'Évaluation</span>
+              <span class="module-status">6</span>
+            </a>
+          </li>
+          <li>
+            <a class="module-link" data-target-section="certificat">
+              <span class="module-icon">🎓</span>
+              <span>Attestation / Diplôme</span>
+            </a>
+          </li>
+          <li>
+            <a class="module-link" data-target-section="glossaire">
+              <span class="module-icon">📖</span>
+              <span>Glossaire Facile (A-Z)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Zone de contenu -->
+    <main class="main-content">
+
+      <!-- ================= SECTION : ACCUEIL ================= -->
+      <section class="content-section active" id="section-home">
+        <div class="module-header">
+          <span class="module-badge">👋 Bienvenue à tous</span>
+          <h1>Apprendre l'ordinateur pas à pas, sans stress</h1>
+          <p>Une formation conçue spécialement pour les grands débutants. Découvrez comment fonctionne un ordinateur à votre propre rythme, grâce à des explications simples et des exercices interactifs amusants.</p>
+        </div>
+
+        <div class="callout tip">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <h4>Vous avez peur de faire une bêtise ? Rassurez-vous !</h4>
+            <p>Il est presque impossible de casser un ordinateur simplement en cliquant ou en appuyant sur des touches. Les ordinateurs modernes sont faits pour vous accompagner. Prenez le temps de pratiquer !</p>
+          </div>
+        </div>
+
+        <h2 style="margin: 2rem 0 1rem 0;">Ce que vous allez apprendre :</h2>
+        <div class="cards-grid">
+          <div class="lesson-card">
+            <span class="card-icon">🖥️</span>
+            <h3>1. Anatomie & Allumage</h3>
+            <p>Comprendre chaque composant et visionner le tutoriel vidéo pas à pas pour allumer son ordinateur en toute confiance.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">🖱️</span>
+            <h3>2. La souris et le clavier</h3>
+            <p>Entraînez-vous avec des mini-jeux interactifs : clic, double-clic, glisser-déposer et frappe de texte.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">🪟</span>
+            <h3>3. Le système et le Bureau</h3>
+            <p>Naviguez sur un simulateur de bureau réaliste, ouvrez des fenêtres et apprenez à éteindre proprement.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">📁</span>
+            <h3>4. Fichiers et dossiers</h3>
+            <p>Comprenez comment ranger vos documents, photos, et utiliser la corbeille en toute sérénité.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">🛡️</span>
+            <h3>5. Internet en sécurité</h3>
+            <p>Naviguer sur le Web, faire des recherches et éviter les pièges et faux e-mails (phishing).</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">🏆</span>
+            <h3>6. Quiz & Certificat</h3>
+            <p>Validez vos acquis avec notre quiz et repartez avec votre attestation personnalisée à imprimer.</p>
+          </div>
+        </div>
+
+        <div style="margin-top: 2.5rem; text-align: center; background: var(--bg-alt); padding: 2rem; border-radius: var(--radius-lg);">
+          <h3 style="margin-bottom: 0.5rem;">Prêt(e) à commencer votre premier cours ?</h3>
+          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Aucune inscription requise, vous pouvez commencer immédiatement.</p>
+          <a class="btn btn-primary" data-target-section="mod1">🚀 Démarrer le Module 1 : Anatomie de l'ordinateur</a>
+        </div>
+      </section>
+
+
+      <!-- ================= SECTION : MODULE 1 ================= -->
+      <section class="content-section" id="section-mod1">
+        <div class="module-header">
+          <span class="module-badge">📦 Module 1</span>
+          <h1>Qu'est-ce qu'un ordinateur et comment est-il composé ?</h1>
+          <p>Découvrons ensemble les différents éléments qui composent un équipement informatique.</p>
+          <button class="read-aloud-btn">🔊 Écouter la leçon</button>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">ℹ️</div>
+          <div class="callout-content">
+            <h4>La distinction magique : Matériel vs Logiciel</h4>
+            <p><strong>Le matériel (Hardware) :</strong> c'est tout ce que vous pouvez toucher avec vos mains (l'écran, la souris, la tour, le clavier).<br>
+            <strong>Le logiciel (Software) :</strong> ce sont les programmes invisibles à l'intérieur qui font fonctionner la machine (Windows, un traitement de texte, un jeu).</p>
+          </div>
+        </div>
+
+        <h2 style="margin: 2rem 0 1rem 0;">Schéma interactif : Cliquez sur un élément pour comprendre son rôle</h2>
+        
+        <div class="interactive-computer-diagram">
+          <div class="diagram-tabs">
+            <button class="diagram-tab-btn active" data-component="ecran">🖥️ Écran</button>
+            <button class="diagram-tab-btn" data-component="tour">📦 Unité Centrale</button>
+            <button class="diagram-tab-btn" data-component="souris">🖱️ Souris</button>
+            <button class="diagram-tab-btn" data-component="clavier">⌨️ Clavier</button>
+            <button class="diagram-tab-btn" data-component="cpu">🧠 Processeur</button>
+            <button class="diagram-tab-btn" data-component="ram">⚡ Mémoire RAM</button>
+            <button class="diagram-tab-btn" data-component="stockage">💽 Disque Dur (SSD)</button>
+          </div>
+
+          <div class="diagram-viewport" id="diagram-detail-view">
+            <div class="component-detail">
+              <h3>🖥️ L'Écran (Le Moniteur)</h3>
+              <span class="role">Périphérique d'affichage</span>
+              <p>C'est la fenêtre visuelle de votre ordinateur. Il affiche en temps réel les images, les textes, les vidéos et les logiciels que vous utilisez. Sa taille se mesure en pouces (ex: 24 pouces).</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 style="margin: 2.5rem 0 1rem 0;">Les deux grandes familles d'ordinateurs personnels</h2>
+        <div class="cards-grid">
+          <div class="lesson-card">
+            <span class="card-icon">🖥️</span>
+            <h3>L'ordinateur de bureau (Tour fixe)</h3>
+            <p>Il est composé d'une tour posée sur le sol ou sur la table, reliée à un écran séparé, un clavier et une souris avec des câbles. Il ne bouge pas de la maison, mais est très confortable.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">💻</span>
+            <h3>L'ordinateur portable (Laptop)</h3>
+            <p>Il regroupe tout en un seul bloc pliable : l'écran, le clavier, la batterie et un pavé tactile qui remplace la souris. Vous pouvez l'emporter partout facilement.</p>
+          </div>
+        </div>
+
+        <!-- Section Vidéo : Comment allumer son ordinateur -->
+        <div class="video-tutorial-card">
+          <div class="video-tutorial-header">
+            <span class="module-badge" style="background: var(--accent-light); color: var(--accent);">🎬 Démonstration Vidéo</span>
+            <h2>Tutoriel pratique : Comment allumer son ordinateur</h2>
+            <p style="color: var(--text-muted);">Visionnez cette vidéo explicative pas à pas pour repérer le bouton de mise sous tension et démarrer votre ordinateur sereinement :</p>
+          </div>
+
+          <div class="video-player-container">
+            <video controls preload="metadata" id="lesson-video-power">
+              <source src="video/YTDown.com_YouTube_Media_8L5QTn32n_Q_Comment-allumer-un-ordinateur-portable-HP_001_720p.mp4" type="video/mp4">
+              Votre navigateur ne prend pas en charge la lecture de vidéos HTML5. Vous pouvez ouvrir directement le fichier dans le dossier <code>video/</code>.
+            </video>
+          </div>
+
+          <h3 style="margin-top: 1.5rem; font-size: 1.1rem; color: var(--text-main);">📋 Ce qu'il faut retenir pour allumer son ordinateur :</h3>
+          <div class="video-key-steps">
+            <div class="key-step-item">
+              <strong>1. Le branchement électrique</strong>
+              <span>Vérifiez que votre ordinateur est branché sur le secteur ou que la batterie de votre PC portable a suffisamment de charge.</span>
+            </div>
+            <div class="key-step-item">
+              <strong>2. Le bouton Marche/Arrêt (⏻)</strong>
+              <span>Repérez la touche marquée du symbole universel (un cercle fendu d'un trait vertical). Elle est souvent située en haut à gauche/droite du clavier ou sur la tranche.</span>
+            </div>
+            <div class="key-step-item">
+              <strong>3. Une seule pression douce</strong>
+              <span>Appuyez fermement pendant environ 1 seconde puis relâchez. Inutile de rester appuyé trop longtemps !</span>
+            </div>
+            <div class="key-step-item">
+              <strong>4. Patienter quelques secondes</strong>
+              <span>Le voyant lumineux s'allume, l'écran s'éclaire et le logo de la marque apparaît. Votre bureau sera prêt dans un instant.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout tip">
+          <div class="callout-icon">🔌</div>
+          <div class="callout-content">
+            <h4>Les prises et branchements les plus courants :</h4>
+            <p>• <strong>La prise USB :</strong> C'est la petite prise rectangulaire magique. On y branche la souris, une clé USB, une imprimante ou son téléphone.<br>
+            • <strong>La prise HDMI :</strong> Elle transmet l'image et le son entre la tour et l'écran.<br>
+            • <strong>La prise secteur (Alimentation) :</strong> Elle apporte le courant électrique indispensable à l'ordinateur.</p>
+          </div>
+        </div>
+
+        <div class="module-pagination">
+          <a class="btn btn-outline" data-target-section="home">⬅️ Retour à l'accueil</a>
+          <a class="btn btn-primary" data-target-section="mod3" onclick="window.appState.markCompleted('mod1')">Passer au Module 2 : Présentation du Bureau ➡️</a>
+        </div>
+      </section>
+
+
+      <!-- ================= SECTION : MODULE 2 ================= -->
+      <section class="content-section" id="section-mod2">
+        <div class="module-header">
+          <span class="module-badge">🖱️ Module 2</span>
+          <h1>Maîtriser la Souris et le Clavier</h1>
+          <p>Ce sont vos deux mains numériques. Apprenez les bons gestes et entraînez-vous en direct !</p>
+          <button class="read-aloud-btn">🔊 Écouter la leçon</button>
+        </div>
+
+        <h2>1. Les gestes essentiels avec la souris</h2>
+        <div class="cards-grid">
+          <div class="lesson-card">
+            <span class="card-icon">👆</span>
+            <h3>Le Clic Gauche (Simple clic)</h3>
+            <p>Appuyez une fois avec votre index sur le bouton gauche. Sert à <strong>sélectionner</strong> un élément ou cliquer sur un bouton / un lien.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">⚡</span>
+            <h3>Le Double-Clic</h3>
+            <p>Deux clics gauches très rapides et consécutifs sans bouger la souris. Sert principalement à <strong>ouvrir</strong> un dossier ou un fichier sur le bureau.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">👉</span>
+            <h3>Le Clic Droit</h3>
+            <p>Appuyez avec votre majeur sur le bouton droit. Il ouvre comme par magie le <strong>menu contextuel</strong> (la liste des options possibles : copier, supprimer, renommer).</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">📜</span>
+            <h3>La Molette</h3>
+            <p>Faites rouler la petite roulette entre vos doigts pour <strong>faire défiler</strong> une page Internet ou un long document vers le haut ou le bas.</p>
+          </div>
+        </div>
+
+        <!-- Mini-Jeu Entraîneur de Souris -->
+        <h2 style="margin: 2.5rem 0 1rem 0;">🎮 Atelier pratique : Entraînez-vous à la souris !</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Choisissez un niveau, cliquez sur « Démarrer » et réalisez les 5 actions demandées.</p>
+
+        <div class="interactive-playground">
+          <div class="playground-controls">
+            <div>
+              <label for="mouse-level-select" style="font-weight: 600; margin-right: 0.5rem;">Choisir l'exercice :</label>
+              <select id="mouse-level-select" style="padding: 0.4rem 0.8rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 0.95rem;">
+                <option value="1">Niveau 1 : Clic gauche simple</option>
+                <option value="2">Niveau 2 : Double-clic rapide</option>
+                <option value="3">Niveau 3 : Glisser-déposer</option>
+              </select>
+            </div>
+            <div id="mouse-score" style="font-weight: 700; color: var(--primary); font-size: 1.1rem;">Score : 0 / 5</div>
+            <button class="btn btn-primary btn-sm" id="start-mouse-btn">▶️ Démarrer l'exercice</button>
+          </div>
+
+          <div style="font-weight: 500; margin-bottom: 0.75rem; color: var(--text-muted);" id="mouse-instruction">
+            🎯 Niveau 1 : Cliquez une fois avec le bouton gauche sur chaque cible bleue qui apparaît !
+          </div>
+
+          <div class="mouse-game-canvas" id="mouse-canvas">
+            <div style="height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+              Cliquez sur le bouton bleu « Démarrer l'exercice » ci-dessus pour lancer le jeu.
+            </div>
+          </div>
+        </div>
+
+        <!-- Le Clavier -->
+        <h2 style="margin: 3rem 0 1rem 0;">2. Découvrir les touches indispensables du Clavier</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">En France et dans les pays francophones, la disposition s'appelle généralement <strong>AZERTY</strong> (les 6 premières lettres de la rangée supérieure).</p>
+
+        <div class="cards-grid">
+          <div class="lesson-card">
+            <span class="card-icon">↩️</span>
+            <h3>Touche Entrée (Enter)</h3>
+            <p>Valide un choix ou saute à la ligne suivante lors de la saisie d'un texte.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">⌫</span>
+            <h3>Touche Retour Arrière (Effacer)</h3>
+            <p>Située au-dessus de la touche Entrée. Elle efface le caractère qui se trouve juste avant le curseur clignotant.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">␣</span>
+            <h3>Barre d'espace</h3>
+            <p>La plus longue touche tout en bas du clavier. Elle insère un espace vide entre deux mots.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">⬆️</span>
+            <h3>Majuscule (Shift) & Verr Maj</h3>
+            <p>Permet d'écrire une lettre en majuscule ou d'accéder aux chiffres en haut du clavier.</p>
+          </div>
+        </div>
+
+        <div class="callout tip">
+          <div class="callout-icon">✨</div>
+          <div class="callout-content">
+            <h4>Les 3 raccourcis clavier magiques à retenir :</h4>
+            <p>• <strong>Ctrl + C :</strong> Copier le texte sélectionné dans la mémoire.<br>
+            • <strong>Ctrl + V :</strong> Coller le texte copié là où se trouve le curseur.<br>
+            • <strong>Ctrl + Z :</strong> Annuler la dernière bêtise ou erreur (comme un retour dans le passé !).</p>
+          </div>
+        </div>
+
+        <div class="video-tutorial-card">
+          <div class="video-tutorial-header">
+            <span class="module-badge" style="background: var(--accent-light); color: var(--accent);">🎬 Vidéo</span>
+            <h2>Comprendre le fonctionnement du clavier</h2>
+            <p style="color: var(--text-muted);">Regardez cette courte vidéo pour mieux comprendre où se trouvent les touches essentielles et comment les utiliser au quotidien.</p>
+          </div>
+
+          <div class="video-player-container">
+            <video controls preload="metadata" id="lesson-video-keyboard">
+              <source src="video/YTDown.com_YouTube_Media_3F4BpCsEwo8_Fonctionnement-du-clavier-d-ordinateur-PC-Apprendre-les-touches-essentielles_001_1080p.mp4" type="video/mp4">
+              Votre navigateur ne prend pas en charge la lecture de vidéos HTML5. Vous pouvez ouvrir directement le fichier dans le dossier <code>video/</code>.
+            </video>
+          </div>
+
+          <h3 style="margin-top: 1.5rem; font-size: 1.1rem; color: var(--text-main);">📌 À retenir en regardant la vidéo :</h3>
+          <div class="video-key-steps">
+            <div class="key-step-item">
+              <strong>1. La disposition du clavier</strong>
+              <span>Le clavier AZERTY est organisé par rangées de lettres, chiffres et touches de fonctions. Les touches les plus utilisées sont bien visibles et faciles à repérer.</span>
+            </div>
+            <div class="key-step-item">
+              <strong>2. Les touches de base</strong>
+              <span>Entrée, Effacer, Espace et Majuscule sont les touches les plus importantes pour écrire, valider ou corriger une action.</span>
+            </div>
+            <div class="key-step-item">
+              <strong>3. Les raccourcis utiles</strong>
+              <span>Ctrl + C, Ctrl + V et Ctrl + Z permettent de copier, coller et annuler rapidement une erreur sans stress.</span>
+            </div>
+            <div class="key-step-item">
+              <strong>4. La pratique régulière</strong>
+              <span>Plus on s'entraîne, plus on trouve naturellement les touches. La clé, c'est la répétition douce et régulière.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Atelier Clavier -->
+        <h2 style="margin: 2.5rem 0 1rem 0;">⌨️ Atelier pratique : Clavier interactif</h2>
+        <div class="keyboard-trainer">
+          <div class="typing-prompt-box">
+            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.25rem;">Texte à taper :</p>
+            <div class="target-sentence" id="typing-target">bonjour</div>
+            <input type="text" class="typing-input" id="typing-input" placeholder="Tapez le mot ici..." autocomplete="off">
+            <div class="quiz-feedback" id="typing-feedback"></div>
+          </div>
+
+          <div style="text-align: center; margin-bottom: 1rem; font-weight: 600; color: var(--primary);" id="active-key-name">
+            Appuyez sur une touche de votre vrai clavier pour l'illuminer ci-dessous :
+          </div>
+
+          <!-- Clavier virtuel AZERTY simplifié -->
+          <div class="virtual-keyboard">
+            <div class="keyboard-row">
+              <div class="key-cap" data-key="A">A</div>
+              <div class="key-cap" data-key="Z">Z</div>
+              <div class="key-cap" data-key="E">E</div>
+              <div class="key-cap" data-key="R">R</div>
+              <div class="key-cap" data-key="T">T</div>
+              <div class="key-cap" data-key="Y">Y</div>
+              <div class="key-cap" data-key="U">U</div>
+              <div class="key-cap" data-key="I">I</div>
+              <div class="key-cap" data-key="O">O</div>
+              <div class="key-cap" data-key="P">P</div>
+              <div class="key-cap key-wide" data-key="BACKSPACE">Effacer</div>
+            </div>
+            <div class="keyboard-row">
+              <div class="key-cap" data-key="Q">Q</div>
+              <div class="key-cap" data-key="S">S</div>
+              <div class="key-cap" data-key="D">D</div>
+              <div class="key-cap" data-key="F">F</div>
+              <div class="key-cap" data-key="G">G</div>
+              <div class="key-cap" data-key="H">H</div>
+              <div class="key-cap" data-key="J">J</div>
+              <div class="key-cap" data-key="K">K</div>
+              <div class="key-cap" data-key="L">L</div>
+              <div class="key-cap" data-key="M">M</div>
+              <div class="key-cap key-enter" data-key="ENTER">Entrée</div>
+            </div>
+            <div class="keyboard-row">
+              <div class="key-cap key-wide" data-key="SHIFT">Maj</div>
+              <div class="key-cap" data-key="W">W</div>
+              <div class="key-cap" data-key="X">X</div>
+              <div class="key-cap" data-key="C">C</div>
+              <div class="key-cap" data-key="V">V</div>
+              <div class="key-cap" data-key="B">B</div>
+              <div class="key-cap" data-key="N">N</div>
+              <div class="key-cap" data-key=",">,</div>
+              <div class="key-cap" data-key=";">;</div>
+              <div class="key-cap" data-key=":">:</div>
+              <div class="key-cap" data-key="!">!</div>
+            </div>
+            <div class="keyboard-row">
+              <div class="key-cap key-wide" data-key="CONTROL">Ctrl</div>
+              <div class="key-cap key-wide" data-key="ALT">Alt</div>
+              <div class="key-cap key-space" data-key="SPACE">Espace</div>
+              <div class="key-cap key-wide" data-key="ALTGRAPH">Alt Gr</div>
+              <div class="key-cap key-wide" data-key="ESCAPE">Échap</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module-pagination">
+          <a class="btn btn-outline" data-target-section="mod1">⬅️ Module 1</a>
+          <a class="btn btn-primary" data-target-section="mod2" onclick="window.appState.markCompleted('mod2')">Passer au Module 3 : Souris & Clavier ➡️</a>
+        </div>
+      </section>
+
+
+      <!-- ================= SECTION : MODULE 3 ================= -->
+      <section class="content-section" id="section-mod3">
+        <div class="module-header">
+          <span class="module-badge">🖥️ Module 3</span>
+          <h1>Le Système d'Exploitation et le Bureau</h1>
+          <p>Comprenez l'environnement dans lequel vous évoluez : Windows, macOS ou Linux, et apprenez à manipuler les fenêtres.</p>
+          <button class="read-aloud-btn">🔊 Écouter la leçon</button>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <h4>Qu'est-ce qu'un système d'exploitation (OS) ?</h4>
+            <p>C'est le chef d'orchestre de l'ordinateur ! C'est le programme fondamental qui s'allume en premier et vous permet de voir un écran agréable, d'utiliser la souris et d'ouvrir des applications. Les plus connus sont <strong>Windows</strong> (par Microsoft), <strong>macOS</strong> (sur ordinateurs Apple) et <strong>Linux</strong>.</p>
+          </div>
+        </div>
+
+        <div class="video-tutorial-card">
+          <div class="video-tutorial-header">
+            <span class="module-badge">🎬 Présentation vidéo</span>
+            <h2>Découvrir le Bureau de Windows</h2>
+            <p style="color: var(--text-muted);">Cette vidéo vous présente les principaux éléments visibles à l'écran. Regardez-la, puis retrouvez-les dans les explications et le simulateur ci-dessous.</p>
+          </div>
+          <div class="video-player-container">
+            <video controls preload="metadata" playsinline aria-label="Présentation du Bureau de Windows">
+              <source src="video/YTDown.com_YouTube_Media_3p9zoNEJRxo_Présentation-du-Bureau-de-Windows-Cours-d-informatique-Chapitre-1-Leçon-n-3_001_1080p.mp4" type="video/mp4">
+              Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
+              <a href="video/YTDown.com_YouTube_Media_3p9zoNEJRxo_Présentation-du-Bureau-de-Windows-Cours-d-informatique-Chapitre-1-Leçon-n-3_001_1080p.mp4">Ouvrir la vidéo de présentation du Bureau de Windows</a>.
+            </video>
+          </div>
+        </div>
+
+        <h2>Les éléments clés du Bureau</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Le Bureau est l'écran de travail qui apparaît après le démarrage. Il permet d'accéder à vos fichiers et à vos applications.</p>
+        <div class="cards-grid">
+          <div class="lesson-card">
+            <span class="card-icon">🖼️</span>
+            <h3>Le fond d'écran</h3>
+            <p>La grande image en arrière-plan qui accueille tous vos raccourcis et vos fenêtres de travail.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">📌</span>
+            <h3>La barre des tâches</h3>
+            <p>La bande située en bas de l'écran. Elle affiche les programmes ouverts, l'heure et le menu principal.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">🪟</span>
+            <h3>Le bouton « Démarrer »</h3>
+            <p>Situé tout à gauche de la barre des tâches. C'est la porte d'entrée pour trouver tous vos programmes et éteindre l'ordinateur.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">🗑️</span>
+            <h3>La Corbeille</h3>
+            <p>L'endroit où vont les fichiers que vous supprimez. Tant que vous ne la videz pas, rien n'est définitivement perdu !</p>
+          </div>
+        </div>
+
+        <!-- Simulateur de Bureau Interactif -->
+        <h2 style="margin: 2.5rem 0 1rem 0;">💻 Simulateur interactif de Bureau</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Cliquez sur les icônes pour ouvrir des applications, utilisez le menu Démarrer ou la calculatrice !</p>
+
+        <div class="desktop-simulator">
+          <div class="desktop-workspace">
+            <!-- Icone Documents -->
+            <div class="desktop-icon" data-open-window="docs">
+              <span class="icon-img">📁</span>
+              <span>Mes Fichiers</span>
+            </div>
+
+            <!-- Icone Bloc-Notes -->
+            <div class="desktop-icon" data-open-window="notepad">
+              <span class="icon-img">📝</span>
+              <span>Bloc-notes</span>
+            </div>
+
+            <!-- Icone Calculatrice -->
+            <div class="desktop-icon" data-open-window="calc">
+              <span class="icon-img">🔢</span>
+              <span>Calculatrice</span>
+            </div>
+
+            <!-- Icone Corbeille -->
+            <div class="desktop-icon" data-open-window="trash">
+              <span class="icon-img">🗑️</span>
+              <span>Corbeille</span>
+            </div>
+
+            <!-- Fenêtre 1 : Mes Fichiers -->
+            <div class="sim-window" id="window-docs">
+              <div class="sim-window-header">
+                <span class="sim-window-title">📁 Explorateur de Fichiers</span>
+                <button class="sim-window-close" title="Fermer la fenêtre">✕</button>
+              </div>
+              <div class="sim-window-body">
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.85rem;">Contenu du dossier Documents :</p>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                  <div style="padding: 0.4rem; background: var(--bg-alt); border-radius: 4px; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>📄</span> <strong>Mon_Premier_Texte.txt</strong> <span style="margin-left: auto; font-size: 0.8rem; color: #64748b;">12 Ko</span>
+                  </div>
+                  <div style="padding: 0.4rem; background: var(--bg-alt); border-radius: 4px; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>🖼️</span> <strong>Photo_Famille.jpg</strong> <span style="margin-left: auto; font-size: 0.8rem; color: #64748b;">1.8 Mo</span>
+                  </div>
+                  <div style="padding: 0.4rem; background: var(--bg-alt); border-radius: 4px; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>📕</span> <strong>Attestation_Assurance.pdf</strong> <span style="margin-left: auto; font-size: 0.8rem; color: #64748b;">450 Ko</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fenêtre 2 : Bloc-Notes -->
+            <div class="sim-window" id="window-notepad">
+              <div class="sim-window-header">
+                <span class="sim-window-title">📝 Bloc-notes</span>
+                <button class="sim-window-close" title="Fermer la fenêtre">✕</button>
+              </div>
+              <div class="sim-window-body">
+                <textarea class="sim-textarea" placeholder="Vous pouvez écrire librement ce que vous voulez dans ce bloc-notes simulé !"></textarea>
+              </div>
+            </div>
+
+            <!-- Fenêtre 3 : Calculatrice -->
+            <div class="sim-window" id="window-calc" style="width: 260px;">
+              <div class="sim-window-header">
+                <span class="sim-window-title">🔢 Calculatrice</span>
+                <button class="sim-window-close" title="Fermer la fenêtre">✕</button>
+              </div>
+              <div class="sim-window-body" style="padding: 0.75rem;">
+                <div id="calc-display" style="background: var(--bg-alt); padding: 0.5rem; text-align: right; font-size: 1.4rem; font-weight: 700; border-radius: 4px; margin-bottom: 0.75rem;">0</div>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;">
+                  <button class="btn-icon calc-btn" data-val="7">7</button>
+                  <button class="btn-icon calc-btn" data-val="8">8</button>
+                  <button class="btn-icon calc-btn" data-val="9">9</button>
+                  <button class="btn-icon calc-btn" data-val="/" style="color:var(--primary);">÷</button>
+                  <button class="btn-icon calc-btn" data-val="4">4</button>
+                  <button class="btn-icon calc-btn" data-val="5">5</button>
+                  <button class="btn-icon calc-btn" data-val="6">6</button>
+                  <button class="btn-icon calc-btn" data-val="*" style="color:var(--primary);">×</button>
+                  <button class="btn-icon calc-btn" data-val="1">1</button>
+                  <button class="btn-icon calc-btn" data-val="2">2</button>
+                  <button class="btn-icon calc-btn" data-val="3">3</button>
+                  <button class="btn-icon calc-btn" data-val="-" style="color:var(--primary);">-</button>
+                  <button class="btn-icon calc-btn" data-val="C" style="color:var(--danger);">C</button>
+                  <button class="btn-icon calc-btn" data-val="0">0</button>
+                  <button class="btn-icon calc-btn" data-val="=" style="background:var(--accent); color:white;">=</button>
+                  <button class="btn-icon calc-btn" data-val="+" style="color:var(--primary);">+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fenêtre 4 : Corbeille -->
+            <div class="sim-window" id="window-trash">
+              <div class="sim-window-header">
+                <span class="sim-window-title">🗑️ Corbeille</span>
+                <button class="sim-window-close" title="Fermer la fenêtre">✕</button>
+              </div>
+              <div class="sim-window-body">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                  <span style="font-size: 0.85rem; color: #64748b;">1 élément jeté</span>
+                  <button class="btn btn-outline btn-sm" id="sim-empty-trash-btn">🗑️ Vider la corbeille</button>
+                </div>
+                <div id="sim-trash-items">
+                  <div style="padding: 0.4rem; background: var(--bg-alt); border-radius: 4px; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>📄</span> <strong>brouillon_a_jeter.txt</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Menu Démarrer popup -->
+          <div class="start-menu-popup" id="sim-start-menu">
+            <div style="font-weight: 700; margin-bottom: 0.5rem; padding-bottom: 0.35rem; border-bottom: 1px solid var(--border-color); color: var(--primary);">
+              Applications
+            </div>
+            <div class="start-menu-item" data-open-window="notepad">📝 Bloc-notes</div>
+            <div class="start-menu-item" data-open-window="calc">🔢 Calculatrice</div>
+            <div class="start-menu-item" data-open-window="docs">📁 Mes Fichiers</div>
+            <div class="start-menu-item" id="sim-shutdown" style="color: var(--danger); margin-top: 0.5rem; border-top: 1px solid var(--border-color); padding-top: 0.5rem;">
+              ⭕ Arrêter l'ordinateur
+            </div>
+          </div>
+
+          <!-- Barre des tâches -->
+          <div class="desktop-taskbar">
+            <button class="btn-start-menu" id="sim-start-btn">
+              <span>🪟</span> Démarrer
+            </button>
+            <div class="taskbar-clock" id="sim-clock">12:00</div>
+          </div>
+        </div>
+
+        <div class="callout warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-content">
+            <h4>Comment éteindre son ordinateur sans l'abîmer ?</h4>
+            <p>Ne débranchez jamais la prise murale d'un coup sec ! Pour éteindre proprement :<br>
+            1. Cliquez sur le bouton <strong>Démarrer</strong> (le logo Windows tout en bas à gauche).<br>
+            2. Cliquez sur l'icône <strong>Marche/Arrêt</strong> (le cercle avec une barre verticale).<br>
+            3. Cliquez sur <strong>Arrêter</strong>. L'ordinateur prendra quelques secondes pour enregistrer son état et s'éteindra tout seul.</p>
+          </div>
+        </div>
+
+        <div class="module-pagination">
+          <a class="btn btn-outline" data-target-section="mod1">⬅️ Module 1</a>
+          <a class="btn btn-primary" data-target-section="mod2" onclick="window.appState.markCompleted('mod3')">Passer au Module 3 : Souris & Clavier ➡️</a>
+        </div>
+      </section>
+
+
+      <!-- ================= SECTION : MODULE 4 ================= -->
+      <section class="content-section" id="section-mod4">
+        <div class="module-header">
+          <span class="module-badge">📁 Module 4</span>
+          <h1>Comprendre et Ranger ses Fichiers et Dossiers</h1>
+          <p>L'armoire de rangement de votre ordinateur : organisez facilement vos documents, photos et téléchargements.</p>
+          <button class="read-aloud-btn">🔊 Écouter la leçon</button>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">🗂️</div>
+          <div class="callout-content">
+            <h4>L'analogie du bureau réel : Fichier vs Dossier</h4>
+            <p>Imaginez votre ordinateur comme un bureau physique :<br>
+            • <strong>Le Fichier :</strong> C'est une feuille de papier (une lettre, une photo, une facture). Il contient une information précise.<br>
+            • <strong>Le Dossier :</strong> C'est une chemise cartonnée ou un classeur. Il ne contient pas de texte direct, mais sert à ranger plusieurs fichiers ensemble pour ne pas les perdre.</p>
+          </div>
+        </div>
+
+        <h2>Les extensions de fichiers courantes (La carte d'identité du document)</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">À la fin de chaque nom de fichier, il y a un point suivi de 3 ou 4 lettres. C'est l'extension. Elle indique au système comment ouvrir le fichier :</p>
+
+        <div class="cards-grid">
+          <div class="lesson-card">
+            <span class="card-icon">📕</span>
+            <h3>.pdf (Document PDF)</h3>
+            <p>Idéal pour les factures et contrats officiels. La mise en page ne bouge jamais, quel que soit l'appareil.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">📘</span>
+            <h3>.docx (Document Word)</h3>
+            <p>Fichier de texte modifiable créé avec Microsoft Word ou LibreOffice.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">🖼️</span>
+            <h3>.jpg ou .png (Images / Photos)</h3>
+            <p>Le format de vos photos de famille, images téléchargées ou dessins.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">🎵</span>
+            <h3>.mp3 (Musique / Audio)</h3>
+            <p>Chansons et enregistrements audio.</p>
+          </div>
+        </div>
+
+        <h2 style="margin: 2.5rem 0 1rem 0;">Les 4 dossiers prévus d'avance pour vous simplifier la vie</h2>
+        <div class="cards-grid">
+          <div class="lesson-card">
+            <span class="card-icon">📥</span>
+            <h3>Téléchargements</h3>
+            <p>Tous les fichiers reçus d'Internet ou des e-mails arrivent automatiquement ici.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">📄</span>
+            <h3>Documents</h3>
+            <p>L'endroit idéal pour ranger vos courriers, factures et fichiers texte personnels.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">🌅</span>
+            <h3>Images</h3>
+            <p>Le coin dédié aux photos de votre appareil photo ou de votre smartphone.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">🎬</span>
+            <h3>Vidéos</h3>
+            <p>Pour stocker les films et petites vidéos souvenirs de vacances.</p>
+          </div>
+        </div>
+
+        <div class="video-tutorial-card">
+          <div class="video-tutorial-header">
+            <span class="module-badge" style="background: var(--accent-light); color: var(--accent);">🎬 Vidéo pratique</span>
+            <h2>Créer un nouveau dossier sur le bureau</h2>
+            <p style="color: var(--text-muted);">Cette vidéo montre comment créer un dossier proprement, le renommer et le ranger pour mieux organiser ses fichiers.</p>
+          </div>
+
+          <div class="video-player-container">
+            <video controls preload="metadata" playsinline aria-label="Comment créer un nouveau dossier sur votre bureau">
+              <source src="video/YTDown.com_YouTube_Media_6Ss7pKawY1o_COMMENT-CRÉER-UN-NOUVEAU-DOSSIER-SUR-VOTRE-BUREAU_001_1080p.mp4" type="video/mp4">
+              Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
+              <a href="video/YTDown.com_YouTube_Media_6Ss7pKawY1o_COMMENT-CRÉER-UN-NOUVEAU-DOSSIER-SUR-VOTRE-BUREAU_001_1080p.mp4">Ouvrir la vidéo : créer un dossier</a>.
+            </video>
+          </div>
+
+          <h3 style="margin-top: 1.5rem; font-size: 1.1rem; color: var(--text-main);">📌 À retenir :</h3>
+          <div class="video-key-steps">
+            <div class="key-step-item">
+              <strong>1. Choisissez l'endroit</strong>
+              <span>On peut créer un dossier sur le Bureau ou dans Documents selon le rangement désiré.</span>
+            </div>
+            <div class="key-step-item">
+              <strong>2. Faites un clic droit</strong>
+              <span>Dans un espace vide, cliquez avec le bouton droit de la souris pour ouvrir le menu contextuel.</span>
+            </div>
+            <div class="key-step-item">
+              <strong>3. Créer puis nommer</strong>
+              <span>Choisissez « Nouveau » puis « Dossier » et donnez-lui un nom clair comme « Photos voyage » ou « Impôts 2026 ».</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout tip">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <h4>Comment créer un nouveau dossier en 3 étapes :</h4>
+            <p>1. Rendez-vous à l'endroit désiré (sur le Bureau ou dans Documents).<br>
+            2. Faites un <strong>clic droit</strong> dans un espace vide blanc.<br>
+            3. Dans le menu qui apparaît, survolez <strong>« Nouveau »</strong> puis cliquez sur <strong>« Dossier »</strong>. Donnez-lui un nom clair (ex: Impôts 2026) et appuyez sur la touche <strong>Entrée</strong> !</p>
+          </div>
+        </div>
+
+        <section class="file-copy-lesson" aria-labelledby="file-copy-title">
+          <div class="module-header">
+            <span class="module-badge">📋 Étape pratique</span>
+            <h2 id="file-copy-title">Copier-coller un fichier sous Windows</h2>
+            <p>Pour créer une deuxième copie d'un fichier dans un autre dossier, utilisez les raccourcis <strong>Ctrl + C</strong> puis <strong>Ctrl + V</strong>.</p>
+          </div>
+
+          <div class="video-tutorial-card">
+            <div class="video-tutorial-header">
+              <span class="module-badge" style="background: var(--accent-light); color: var(--accent);">🎬 Vidéo pratique</span>
+              <h3>Regarder comment faire un copier-coller</h3>
+              <p style="color: var(--text-muted);">Suivez la démonstration, puis entraînez-vous avec les étapes et l'exercice ci-dessous.</p>
+            </div>
+            <div class="video-player-container">
+              <video controls preload="metadata" playsinline aria-label="Comment faire un copier-coller sur un ordinateur">
+                <source src="video/YTDown.com_YouTube_Media_MOJF3CJKbTo_Comment-faire-un-copier-coller-sur-ton-ordi-facilement_001_720p.mp4" type="video/mp4">
+                Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
+                <a href="video/YTDown.com_YouTube_Media_MOJF3CJKbTo_Comment-faire-un-copier-coller-sur-ton-ordi-facilement_001_720p.mp4">Ouvrir la vidéo de démonstration du copier-coller</a>.
+              </video>
+            </div>
+          </div>
+
+          <div class="video-key-steps">
+            <div class="key-step-item">
+              <strong>1. Sélectionner le fichier</strong>
+              <span>Dans l'Explorateur de fichiers, cliquez une fois sur le fichier à copier.</span>
+            </div>
+            <div class="key-step-item">
+              <strong>2. Copier</strong>
+              <span>Appuyez sur <kbd>Ctrl</kbd> + <kbd>C</kbd>, ou faites un clic droit puis « Copier ».</span>
+            </div>
+            <div class="key-step-item">
+              <strong>3. Ouvrir le dossier de destination</strong>
+              <span>Allez dans le dossier où vous voulez placer la copie, par exemple « Documents ».</span>
+            </div>
+            <div class="key-step-item">
+              <strong>4. Coller</strong>
+              <span>Appuyez sur <kbd>Ctrl</kbd> + <kbd>V</kbd>, ou faites un clic droit dans le dossier puis « Coller ».</span>
+            </div>
+          </div>
+
+          <div class="callout warning">
+            <div class="callout-icon">⚠️</div>
+            <div class="callout-content">
+              <h4>Copier n'est pas couper</h4>
+              <p><strong>Copier (Ctrl + C)</strong> laisse le fichier original à sa place et crée une copie. <strong>Couper (Ctrl + X)</strong> déplace le fichier vers le nouvel endroit. Pour débuter, choisissez « Copier » afin de garder l'original.</p>
+            </div>
+          </div>
+
+          <div class="file-copy-practice" id="file-copy-practice" aria-labelledby="file-copy-practice-title">
+            <h3 id="file-copy-practice-title">Entraînez-vous dans ce bureau simulé</h3>
+            <p class="file-copy-help">Cliquez sur le fichier, copiez-le, puis collez-le dans le dossier « Mes cours ». Vous pouvez utiliser les boutons ou les raccourcis clavier.</p>
+            <div class="file-copy-workspace">
+              <div class="file-copy-panel">
+                <h4>📥 Téléchargements</h4>
+                <button class="file-copy-item" id="file-copy-source" type="button" aria-pressed="false">
+                  📄 <span>Exercice-Windows.pdf</span>
+                </button>
+              </div>
+              <div class="file-copy-actions">
+                <button class="btn btn-outline btn-sm" id="file-copy-copy" type="button" disabled>📋 Copier <kbd>Ctrl + C</kbd></button>
+                <span aria-hidden="true">➡️</span>
+                <button class="btn btn-primary btn-sm" id="file-copy-paste" type="button" disabled>📥 Coller <kbd>Ctrl + V</kbd></button>
+              </div>
+              <div class="file-copy-panel">
+                <h4>📁 Mes cours</h4>
+                <ul class="file-copy-destination" id="file-copy-destination" aria-label="Fichiers dans Mes cours">
+                  <li class="file-copy-empty">Le dossier est vide.</li>
+                </ul>
+              </div>
+            </div>
+            <p class="file-copy-feedback" id="file-copy-feedback" role="status" aria-live="polite">Commencez par sélectionner le fichier dans Téléchargements.</p>
+            <button class="btn btn-outline btn-sm" id="file-copy-reset" type="button">↻ Recommencer l'exercice</button>
+          </div>
+        </section>
+
+        <div class="module-pagination">
+          <a class="btn btn-outline" data-target-section="mod2">⬅️ Module 2</a>
+          <a class="btn btn-primary" data-target-section="mod5" onclick="window.appState.markCompleted('mod4')">Passer au Module 5 : Internet & Sécurité ➡️</a>
+        </div>
+      </section>
+
+
+      <!-- ================= SECTION : MODULE 5 ================= -->
+      <section class="content-section" id="section-mod5">
+        <div class="module-header">
+          <span class="module-badge">🌐 Module 5</span>
+          <h1>Découvrir Internet et Naviguer en Toute Sécurité</h1>
+          <p>Le Web ouvre la porte sur le monde entier : informations, démarches administratives et communication. Apprenez les bons réflexes pour naviguer en confiance.</p>
+          <button class="read-aloud-btn">🔊 Écouter la leçon</button>
+        </div>
+
+        <h2>1. Le Navigateur Web : Votre véhicule pour explorer Internet</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Pour aller sur Internet, vous devez ouvrir un logiciel appelé <strong>navigateur</strong>. Les plus répandus sont :</p>
+
+        <div class="cards-grid">
+          <div class="lesson-card">
+            <span class="card-icon">🔴🟡🟢</span>
+            <h3>Google Chrome</h3>
+            <p>Le navigateur le plus utilisé au monde, rapide et synchronisé avec les services Google.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">🦊</span>
+            <h3>Mozilla Firefox</h3>
+            <p>Un navigateur libre, indépendant et très respectueux de la vie privée.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">🌊</span>
+            <h3>Microsoft Edge</h3>
+            <p>Le navigateur déjà installé par défaut sur tous les ordinateurs avec Windows.</p>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">🔎</div>
+          <div class="callout-content">
+            <h4>Barre d'adresse vs Moteur de recherche</h4>
+            <p>• <strong>La barre d'adresse (tout en haut) :</strong> Sert quand vous connaissez l'adresse exacte du site (ex: <code>www.service-public.fr</code>).<br>
+            • <strong>Le moteur de recherche (ex: Google) :</strong> Sert quand vous cherchez une information générale en tapant des mots-clés (ex: « recette tarte aux pommes facile »).</p>
+          </div>
+        </div>
+
+        <h2 style="margin: 2.5rem 0 1rem 0;">2. Les 4 règles d'or de la sécurité informatique</h2>
+        <div class="cards-grid">
+          <div class="lesson-card">
+            <span class="card-icon">🔑</span>
+            <h3>1. Des mots de passe robustes</h3>
+            <p>Évitez les mots de passe trop simples comme "123456" ou votre prénom. Mélangez lettres majuscules, minuscules, chiffres et signes spéciaux (ex: <code>*Boulangerie#2026!</code>).</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">🎣</span>
+            <h3>2. Gare au Phishing (Hameçonnage)</h3>
+            <p>Méfiez-vous des e-mails alarmistes qui disent : « Votre colis est bloqué » ou « Votre compte bancaire est suspendu ». <strong>Aucune vraie banque ne vous demandera votre mot de passe par e-mail.</strong></p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">🔒</span>
+            <h3>3. Le cadenas HTTPS</h3>
+            <p>Avant d'acheter quelque chose en ligne ou de taper un mot de passe, vérifiez la présence d'un petit cadenas fermé dans la barre d'adresse à gauche.</p>
+          </div>
+          <div class="lesson-card">
+            <span class="card-icon">🔄</span>
+            <h3>4. Faites les mises à jour</h3>
+            <p>Lorsque Windows ou votre antivirus vous propose une mise à jour de sécurité, acceptez-la. Elle comble les failles contre les virus.</p>
+          </div>
+        </div>
+
+        <div class="module-pagination">
+          <a class="btn btn-outline" data-target-section="mod4">⬅️ Module 4</a>
+          <a class="btn btn-primary" data-target-section="quiz" onclick="window.appState.markCompleted('mod5')">Passer au Quiz d'Évaluation Finale 📝➡️</a>
+        </div>
+      </section>
+
+
+      <!-- ================= SECTION : QUIZ ================= -->
+      <section class="content-section" id="section-quiz">
+        <div class="module-header">
+          <span class="module-badge">📝 Évaluation</span>
+          <h1>Le Grand Quiz des Bases de l'Ordinateur</h1>
+          <p>Répondez aux 10 questions pour tester ce que vous avez retenu. Obtenez au moins 7 bonnes réponses pour débloquer votre attestation !</p>
+        </div>
+
+        <div class="quiz-container">
+          <div id="quiz-questions-container">
+            <!-- Questions injectées par quiz.js -->
+          </div>
+
+          <div class="quiz-results-banner" id="quiz-results">
+            <h2>🎉 Évaluation terminée !</h2>
+            <p id="quiz-score-text">Votre score est de 0 / 10</p>
+            <a class="btn btn-accent" id="unlock-certif-btn" data-target-section="certificat" style="background: white; color: #1e3a8a; font-weight: bold;">
+              🎓 Voir et imprimer mon Certificat de Réussite
+            </a>
+          </div>
+        </div>
+
+        <div class="module-pagination">
+          <a class="btn btn-outline" data-target-section="mod5">⬅️ Module 5</a>
+          <a class="btn btn-primary" data-target-section="certificat">Accéder directement à l'Attestation 🎓</a>
+        </div>
+      </section>
+
+
+      <!-- ================= SECTION : CERTIFICAT ================= -->
+      <section class="content-section" id="section-certificat">
+        <div class="module-header">
+          <span class="module-badge">🎓 Récompense</span>
+          <h1>Votre Attestation d'Initiation à l'Informatique</h1>
+          <p>Entrez votre nom et prénom ci-dessous pour personnaliser votre diplôme, puis imprimez-le ou enregistrez-le en PDF.</p>
+        </div>
+
+        <div style="background: var(--bg-surface); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 2rem;">
+          <label for="certif-name-input" style="display: block; font-weight: 600; margin-bottom: 0.5rem;">Saisissez votre prénom et votre nom :</label>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <input type="text" id="certif-name-input" placeholder="Exemple : Marie Dupont" style="flex: 1; padding: 0.75rem 1rem; border: 2px solid var(--border-color); border-radius: var(--radius-sm); font-size: 1.05rem;">
+            <button class="btn btn-primary" id="btn-print-certificate">🖨️ Imprimer mon attestation (PDF)</button>
+          </div>
+        </div>
+
+        <!-- Aperçu du certificat stylé -->
+        <div class="certificate-preview-wrapper">
+          <div class="certificate-card">
+            <div class="certif-header">
+              <h2>Certificat d'Initiation</h2>
+              <div class="certif-subtitle">à l'Utilisation de l'Ordinateur & du Numérique</div>
+            </div>
+
+            <div class="certif-body">
+              Cette attestation officielle d'assiduité est décernée à :
+              <br>
+              <div class="certif-recipient" id="certif-recipient-name">Votre Nom et Prénom</div>
+              <br>
+              pour avoir suivi avec succès l'ensemble du parcours de formation aux bases de l'informatique :
+              <em>Anatomie matérielle, Maîtrise de la souris et du clavier, Gestion des fichiers et dossiers, Navigation Web et Règles de sécurité élémentaires.</em>
+            </div>
+
+            <div class="certif-footer">
+              <div class="certif-stamp">
+                <span>★ APPRIS ★</span>
+                <span style="font-size: 0.6rem;">VALIDÉ</span>
+              </div>
+              <div>
+                <div id="certif-date-display" style="font-size: 0.9rem; margin-bottom: 0.5rem; color: #475569;">Délivré le 11 Novembre 2026</div>
+                <div class="certif-signature">La Plateforme InfoDébutant</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module-pagination">
+          <a class="btn btn-outline" data-target-section="quiz">⬅️ Revenir au Quiz</a>
+          <a class="btn btn-primary" data-target-section="glossaire">Consulter le Glossaire (A-Z) 📖</a>
+        </div>
+      </section>
+
+
+      <!-- ================= SECTION : GLOSSAIRE ================= -->
+      <section class="content-section" id="section-glossaire">
+        <div class="module-header">
+          <span class="module-badge">📖 Lexique</span>
+          <h1>Glossaire Facile des Termes Informatiques</h1>
+          <p>Un dictionnaire clair et sans jargon technique pour comprendre tous les mots bizarres de l'informatique.</p>
+        </div>
+
+        <input type="text" class="glossary-search" id="glossary-search-input" placeholder="🔍 Rechercher un mot (ex: souris, bug, wifi, virus)...">
+
+        <div class="glossary-grid" id="glossary-items-container">
+          <div class="glossary-item">
+            <h4>Antivirus</h4>
+            <p>Un programme qui protège votre ordinateur comme un bouclier contre les virus et logiciels malveillants.</p>
+          </div>
+          <div class="glossary-item">
+            <h4>Bureau</h4>
+            <p>L'écran principal qui apparaît lorsque vous allumez l'ordinateur, sur lequel se trouvent vos icônes et la barre des tâches.</p>
+          </div>
+          <div class="glossary-item">
+            <h4>Bug</h4>
+            <p>Un petit défaut ou une erreur dans un programme informatique qui l'empêche de fonctionner correctement.</p>
+          </div>
+          <div class="glossary-item">
+            <h4>Curseur</h4>
+            <p>La petite flèche blanche (ou le trait clignotant) à l'écran que vous dirigez grâce à la souris.</p>
+          </div>
+          <div class="glossary-item">
+            <h4>Double-clic</h4>
+            <p>Deux pressions rapides et successives avec l'index sur le bouton gauche de la souris pour ouvrir un dossier ou un document.</p>
+          </div>
+          <div class="glossary-item">
+            <h4>Extension</h4>
+            <p>Les 3 ou 4 lettres à la fin d'un nom de fichier (ex: .pdf, .jpg) qui indiquent sa nature.</p>
+          </div>
+          <div class="glossary-item">
+            <h4>Fenêtre</h4>
+            <p>La zone rectangulaire qui s'ouvre à l'écran lorsqu'on lance un programme. On peut l'agrandir, la réduire ou la fermer avec la croix rouge.</p>
+          </div>
+          <div class="glossary-item">
+            <h4>Hameçonnage (Phishing)</h4>
+            <p>Une arnaque par e-mail ou SMS où un pirate se fait passer pour votre banque ou un service public pour voler vos identifiants.</p>
+          </div>
+          <div class="glossary-item">
+            <h4>Molette</h4>
+            <p>La petite roue placée entre les deux boutons de la souris permettant de faire défiler une page de haut en bas.</p>
+          </div>
+          <div class="glossary-item">
+            <h4>Navigateur</h4>
+            <p>L'application indispensable pour voyager sur Internet (ex: Google Chrome, Mozilla Firefox, Microsoft Edge).</p>
+          </div>
+          <div class="glossary-item">
+            <h4>Processeur (CPU)</h4>
+            <p>Le cerveau électronique de l'ordinateur qui effectue tous les calculs à une vitesse fulgurante.</p>
+          </div>
+          <div class="glossary-item">
+            <h4>RAM (Mémoire vive)</h4>
+            <p>La mémoire à court terme utilisée par les programmes en cours d'exécution. Elle s'efface complètement à l'extinction.</p>
+          </div>
+          <div class="glossary-item">
+            <h4>SSD / Disque Dur</h4>
+            <p>L'espace de stockage permanent où restent gravés tous vos documents et photos même quand l'ordinateur est éteint.</p>
+          </div>
+          <div class="glossary-item">
+            <h4>Wi-Fi</h4>
+            <p>Technologie sans fil permettant à l'ordinateur de se connecter à la box Internet de la maison sans câble réseau.</p>
+          </div>
+        </div>
+
+        <div class="module-pagination">
+          <a class="btn btn-outline" data-target-section="home">🏠 Revenir à l'accueil</a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="footer">
+    <p><strong>InfoDébutant</strong> — Plateforme d'apprentissage des bases de l'ordinateur en HTML, CSS et JavaScript pur.</p>
+    <p style="margin-top: 0.35rem; font-size: 0.8rem;">Pratiquez régulièrement et avancez à votre propre rythme !</p>
+  </footer>
+
+  <!-- Scripts JavaScript modulaires -->
+  <script src="js/mouse-trainer.js"></script>
+  <script src="js/keyboard-trainer.js"></script>
+  <script src="js/file-copy-trainer.js"></script>
+  <script src="js/desktop-sim.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
