@@ -56,6 +56,7 @@ La plateforme est articulée autour de **5 modules thématiques**, d'ateliers pr
    - Mode sombre (Dark mode) avec mémorisation.
    - Synthèse vocale intégrée (*Web Speech API*) pour écouter la leçon lue à voix haute.
    - Suivi de progression automatique avec sauvegarde locale (*localStorage*).
+   - Profil apprenant local : prénom, nom, avatar, progression des modules et dernier score du quiz, enregistrés dans le navigateur sans compte.
 
 ---
 

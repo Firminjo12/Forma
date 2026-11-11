@@ -132,6 +132,141 @@ body {
   gap: 0.75rem;
 }
 
+.profile-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 220px;
+  padding: 0.35rem 0.75rem 0.35rem 0.4rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-trigger:hover {
+  background: var(--bg-alt);
+}
+
+.profile-trigger span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-avatar {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--primary-light);
+  font-size: 1.2rem;
+}
+
+.profile-trigger:focus-visible,
+.profile-dialog button:focus-visible,
+.profile-dialog input:focus-visible,
+.profile-dialog select:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.profile-dialog {
+  width: min(540px, calc(100% - 2rem));
+  max-height: min(90vh, 760px);
+  margin: auto;
+  padding: 1.5rem;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  box-shadow: var(--shadow-xl);
+}
+
+.profile-dialog::backdrop {
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+.profile-dialog-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.profile-dialog-header h2 {
+  margin-top: 0.75rem;
+}
+
+.profile-close-btn {
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.65rem;
+  background: var(--bg-alt);
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.profile-private-note {
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.profile-dialog label {
+  display: block;
+  margin: 0.85rem 0 0.35rem;
+  font-weight: 600;
+}
+
+.profile-dialog input,
+.profile-dialog select {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--bg-page);
+  color: var(--text-main);
+  font: inherit;
+}
+
+.profile-stats {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.profile-stats > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-alt);
+}
+
+.profile-stat-label {
+  color: var(--text-muted);
+}
+
+.profile-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
 /* Outils d'accessibilité */
 .accessibility-bar {
   display: flex;
@@ -1630,6 +1765,14 @@ body.dark-mode .mouse-game-canvas {
    RESPONSIVE DESIGN (Tablettes et Mobiles)
    =================================================================== */
 @media (max-width: 900px) {
+  .nav-container {
+    flex-wrap: wrap;
+  }
+
+  .nav-tools {
+    margin-left: auto;
+  }
+
   .btn-menu-toggle {
     display: inline-flex;
   }
@@ -1674,6 +1817,28 @@ body.dark-mode .mouse-game-canvas {
   .file-copy-actions {
     flex-direction: row;
     justify-content: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .nav-container {
+    padding: 0.6rem 0.75rem;
+  }
+
+  .nav-tools {
+    gap: 0.4rem;
+  }
+
+  .profile-trigger {
+    max-width: 150px;
+  }
+
+  .profile-trigger span:last-child {
+    max-width: 85px;
+  }
+
+  .profile-dialog {
+    padding: 1.1rem;
   }
 }
 

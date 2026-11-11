@@ -205,14 +205,15 @@ class QuizApp {
     if (!this.resultsBanner) return;
     this.resultsBanner.classList.add('show');
     this.scoreText.textContent = `Votre score final est de : ${this.userScore} / ${QUIZ_DATA.length}`;
+    if (window.appState) {
+      window.appState.recordQuizScore(this.userScore, QUIZ_DATA.length);
+    }
 
     const certifLink = document.getElementById('unlock-certif-btn');
     if (this.userScore >= 7) {
       if (certifLink) certifLink.style.display = 'inline-flex';
       // Marquer le module comme complété dans la progression
-      if (window.appState) {
-        window.appState.markCompleted('quiz');
-      }
+      if (window.appState) window.appState.markCompleted('quiz');
     } else {
       if (certifLink) certifLink.style.display = 'none';
     }

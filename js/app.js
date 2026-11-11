@@ -6,6 +6,8 @@ class App {
   constructor() {
     this.currentSection = 'home';
     this.completedModules = JSON.parse(localStorage.getItem('infodebutant_completed') || '[]');
+    this.profile = JSON.parse(localStorage.getItem('infodebutant_profile') || '{"firstName":"","lastName":"","avatar":"🙂"}');
+    this.quizScore = JSON.parse(localStorage.getItem('infodebutant_quiz_score') || 'null');
     this.totalModules = 6; // modules 1 to 5 + quiz
     
     // Synthèse vocale
@@ -18,6 +20,7 @@ class App {
 
   init() {
     this.setupNavigation();
+    this.setupProfile();
     this.setupAccessibility();
     this.setupComputerDiagram();
     this.setupGlossary();
@@ -118,6 +121,12 @@ class App {
     }
   }
 
+  recordQuizScore(score, total) {
+    this.quizScore = { score, total };
+    localStorage.setItem('infodebutant_quiz_score', JSON.stringify(this.quizScore));
+    this.updateProfileSummary();
+  }
+
   updateProgressUI() {
     const percent = Math.min(100, Math.round((this.completedModules.length / this.totalModules) * 100));
     const progressBar = document.getElementById('global-progress-bar');
@@ -135,6 +144,73 @@ class App {
         if (status) status.innerHTML = '✓';
       }
     });
+    this.updateProfileSummary();
+  }
+
+  setupProfile() {
+    const dialog = document.getElementById('profile-dialog');
+    const form = document.getElementById('profile-form');
+    const openButton = document.getElementById('profile-open-btn');
+    const closeButton = document.getElementById('profile-close-btn');
+    const cancelButton = document.getElementById('profile-cancel-btn');
+    const firstNameInput = document.getElementById('profile-first-name');
+    const lastNameInput = document.getElementById('profile-last-name');
+    const avatarInput = document.getElementById('profile-avatar');
+
+    if (!dialog || !form || !openButton || !closeButton || !cancelButton ||
+        !firstNameInput || !lastNameInput || !avatarInput) return;
+
+    firstNameInput.value = this.profile.firstName || '';
+    lastNameInput.value = this.profile.lastName || '';
+    avatarInput.value = this.profile.avatar || '🙂';
+    this.updateProfileSummary();
+
+    openButton.addEventListener('click', () => {
+      firstNameInput.value = this.profile.firstName || '';
+      lastNameInput.value = this.profile.lastName || '';
+      avatarInput.value = this.profile.avatar || '🙂';
+      dialog.showModal();
+    });
+    closeButton.addEventListener('click', () => dialog.close());
+    cancelButton.addEventListener('click', () => dialog.close());
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      this.profile = {
+        firstName: firstNameInput.value.trim(),
+        lastName: lastNameInput.value.trim(),
+        avatar: avatarInput.value
+      };
+      localStorage.setItem('infodebutant_profile', JSON.stringify(this.profile));
+      this.updateProfileSummary();
+
+      const certificateNameInput = document.getElementById('certif-name-input');
+      if (certificateNameInput) {
+        certificateNameInput.value = `${this.profile.firstName} ${this.profile.lastName}`.trim();
+        certificateNameInput.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+
+      dialog.close();
+    });
+  }
+
+  updateProfileSummary() {
+    const avatar = document.getElementById('profile-nav-avatar');
+    const name = document.getElementById('profile-nav-name');
+    const progress = document.getElementById('profile-progress-value');
+    const score = document.getElementById('profile-quiz-score');
+    const completedCount = Math.min(this.completedModules.length, this.totalModules);
+    const percent = Math.min(100, Math.round((completedCount / this.totalModules) * 100));
+    const fullName = `${this.profile.firstName || ''} ${this.profile.lastName || ''}`.trim();
+
+    if (avatar) avatar.textContent = this.profile.avatar || '🙂';
+    if (name) name.textContent = fullName || 'Mon profil';
+    if (progress) progress.textContent = `${percent} % (${completedCount} / ${this.totalModules} modules)`;
+    if (score) {
+      score.textContent = this.quizScore
+        ? `${this.quizScore.score} / ${this.quizScore.total}`
+        : 'Pas encore de score';
+    }
   }
 
   /* ---------------- Accessibilité ---------------- */
@@ -353,6 +429,8 @@ class App {
     }
 
     if (nameInput && certifName) {
+      nameInput.value = `${this.profile.firstName || ''} ${this.profile.lastName || ''}`.trim();
+      certifName.textContent = nameInput.value || 'Votre Nom et Prénom';
       nameInput.addEventListener('input', (e) => {
         certifName.textContent = e.target.value.trim() || 'Votre Nom et Prénom';
       });

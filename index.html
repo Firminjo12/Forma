@@ -22,6 +22,10 @@
 
       <!-- Outils d'accessibilité -->
       <div class="nav-tools">
+        <button class="profile-trigger" id="profile-open-btn" type="button" aria-haspopup="dialog" aria-controls="profile-dialog">
+          <span class="profile-avatar" id="profile-nav-avatar" aria-hidden="true">🙂</span>
+          <span id="profile-nav-name">Mon profil</span>
+        </button>
         <div class="accessibility-bar" title="Ajuster la taille du texte">
           <button class="btn-icon btn-font-size active" id="btn-font-normal" title="Taille normale">A</button>
           <button class="btn-icon btn-font-size" id="btn-font-large" title="Grande taille">A+</button>
@@ -31,6 +35,51 @@
       </div>
     </div>
   </header>
+
+  <dialog class="profile-dialog" id="profile-dialog" aria-labelledby="profile-dialog-title">
+    <form id="profile-form">
+      <div class="profile-dialog-header">
+        <div>
+          <span class="module-badge">👤 Profil local</span>
+          <h2 id="profile-dialog-title">Mon profil apprenant</h2>
+        </div>
+        <button class="profile-close-btn" id="profile-close-btn" type="button" aria-label="Fermer le profil">✕</button>
+      </div>
+      <p class="profile-private-note">Ces informations sont enregistrées uniquement dans ce navigateur. Aucun compte n'est créé.</p>
+
+      <label for="profile-first-name">Prénom</label>
+      <input id="profile-first-name" name="firstName" type="text" maxlength="40" autocomplete="given-name" required>
+
+      <label for="profile-last-name">Nom</label>
+      <input id="profile-last-name" name="lastName" type="text" maxlength="60" autocomplete="family-name" required>
+
+      <label for="profile-avatar">Choisir un avatar</label>
+      <select id="profile-avatar" name="avatar">
+        <option value="🙂">🙂 Souriant</option>
+        <option value="👩‍🎓">👩‍🎓 Étudiante</option>
+        <option value="👨‍🎓">👨‍🎓 Étudiant</option>
+        <option value="🧑‍💻">🧑‍💻 Informaticien</option>
+        <option value="🌟">🌟 Étoile</option>
+        <option value="🐱">🐱 Chat</option>
+      </select>
+
+      <div class="profile-stats" aria-live="polite">
+        <div>
+          <span class="profile-stat-label">Progression des modules</span>
+          <strong id="profile-progress-value">0 % (0 / 6 modules)</strong>
+        </div>
+        <div>
+          <span class="profile-stat-label">Dernier score au quiz</span>
+          <strong id="profile-quiz-score">Pas encore de score</strong>
+        </div>
+      </div>
+
+      <div class="profile-dialog-actions">
+        <button class="btn btn-outline" id="profile-cancel-btn" type="button">Annuler</button>
+        <button class="btn btn-primary" type="submit">Enregistrer mon profil</button>
+      </div>
+    </form>
+  </dialog>
 
   <!-- Disposition principale -->
   <div class="app-layout">
