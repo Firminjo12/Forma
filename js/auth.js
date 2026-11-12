@@ -462,7 +462,8 @@ class SupabaseAuth {
     const signedIn = Boolean(session?.user);
     this.openButton.hidden = signedIn;
     this.signOutButton.hidden = !signedIn;
-    this.signOutButton.textContent = signedIn ? `Déconnexion (${session.user.email})` : 'Déconnexion';
+    this.signOutButton.textContent = 'Déconnexion';
+    this.signOutButton.title = signedIn ? `Déconnexion de ${session.user.email}` : '';
   }
 
   setBusy(isBusy) {
