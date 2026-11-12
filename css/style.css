@@ -939,6 +939,10 @@ body {
 }
 
 .account-status-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   margin-bottom: 1.25rem;
   padding: 0.9rem 1rem;
   border: 1px solid var(--warning);
@@ -947,9 +951,48 @@ body {
   color: var(--text-main);
 }
 
+.account-status-banner[hidden] {
+  display: none;
+}
+
+.account-status-content {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.account-status-content p {
+  color: var(--text-muted);
+}
+
+.account-status-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .account-status-banner.error {
   border-color: var(--danger);
   background: var(--danger-light);
+}
+
+.account-status-banner.success {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.admin-pending-count {
+  display: inline-flex;
+  min-width: 1.6rem;
+  height: 1.6rem;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.35rem;
+  padding: 0 0.4rem;
+  border-radius: var(--radius-full);
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.8rem;
+  vertical-align: middle;
 }
 
 .admin-panel {
@@ -2282,6 +2325,11 @@ body.dark-mode .mouse-game-canvas {
   }
 
   .admin-signup-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .account-status-banner {
     align-items: flex-start;
     flex-direction: column;
   }

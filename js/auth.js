@@ -23,6 +23,7 @@ class SupabaseAuth {
     this.adminFeedback = document.getElementById('admin-feedback');
     this.adminEmptyState = document.getElementById('admin-empty-state');
     this.adminRefreshButton = document.getElementById('admin-refresh-btn');
+    this.adminPendingCount = document.getElementById('admin-pending-count');
     this.mode = 'signin';
     this.client = null;
     this.configurationError = 'Le service de connexion est en cours de chargement.';
@@ -69,6 +70,13 @@ class SupabaseAuth {
     this.resetButton.addEventListener('click', () => this.resetPassword());
     this.signOutButton.addEventListener('click', () => this.signOut());
     this.form.addEventListener('submit', (event) => this.submit(event));
+    window.addEventListener('request-email-confirmation', () => {
+      this.setMode('signin');
+      this.dialog.showModal();
+      this.emailInput.focus();
+      this.showMessage('Saisissez votre adresse e-mail, puis utilisez « Renvoyer le lien de confirmation ».');
+    });
+    window.addEventListener('refresh-registration-state', () => this.refreshRegistrationState());
   }
 
   initializeClient() {
@@ -162,6 +170,24 @@ class SupabaseAuth {
     }
   }
 
+  async refreshRegistrationState() {
+    if (!this.client) {
+      this.publishRegistrationState('error', false, this.configurationError || 'La connexion n’est pas configurée.');
+      return;
+    }
+
+    try {
+      const { data, error } = await this.client.auth.getSession();
+      if (error) {
+        this.publishRegistrationState('error', false, `Impossible de vérifier la session : ${error.message}`);
+        return;
+      }
+      await this.syncSession(data.session);
+    } catch (error) {
+      this.publishRegistrationState('error', false, `Impossible de vérifier la session : ${error.message}`);
+    }
+  }
+
   publishRegistrationState(status, isAdmin = false, message = '') {
     window.registrationState = { status, isAdmin, message };
     if (this.adminNavLink) {
@@ -211,6 +237,11 @@ class SupabaseAuth {
   renderPendingSignups(signups) {
     this.adminList.replaceChildren();
     this.adminEmptyState.hidden = signups.length !== 0;
+    if (this.adminPendingCount) {
+      this.adminPendingCount.textContent = String(signups.length);
+      this.adminPendingCount.hidden = false;
+      this.adminPendingCount.setAttribute('aria-label', `${signups.length} demande(s) en attente`);
+    }
 
     signups.forEach((signup) => {
       const item = document.createElement('li');
@@ -221,7 +252,8 @@ class SupabaseAuth {
       const email = document.createElement('strong');
       email.textContent = signup.email || 'Adresse e-mail indisponible';
       const date = document.createElement('span');
-      date.textContent = `Inscription : ${new Date(signup.created_at).toLocaleString('fr-FR')}`;
+      const createdAt = new Date(signup.created_at);
+      date.textContent = `Inscrit le ${Number.isNaN(createdAt.getTime()) ? 'date inconnue' : createdAt.toLocaleString('fr-FR')}`;
       details.append(email, date);
 
       const actions = document.createElement('div');
@@ -248,6 +280,10 @@ class SupabaseAuth {
   async reviewSignup(userId, status) {
     if (!this.client || !window.registrationState.isAdmin) {
       this.showAdminFeedback('Accès réservé à un administrateur connecté.', true);
+      return;
+    }
+
+    if (status === 'rejected' && !window.confirm('Confirmer le refus de cette inscription ? Le compte ne pourra pas accéder aux formations.')) {
       return;
     }
 
@@ -328,6 +364,11 @@ class SupabaseAuth {
           : await this.client.auth.signInWithPassword({ email, password });
 
       if (result.error) {
+        if (this.mode === 'signin' && result.error.code === 'email_not_confirmed') {
+          this.publishRegistrationState('pending-email');
+          this.showMessage('Votre adresse e-mail n’est pas encore confirmée. Renvoyez le lien de confirmation avant de vous connecter.', 'error');
+          return;
+        }
         this.showMessage(result.error.message, 'error');
         return;
       }
@@ -342,6 +383,7 @@ class SupabaseAuth {
         this.setMode('signin');
         this.emailInput.value = email;
         this.passwordInput.value = '';
+        this.publishRegistrationState('pending-email');
         this.showMessage('Votre compte a été créé. Consultez votre boîte e-mail pour confirmer votre adresse avant de vous connecter.', 'success');
         return;
       }

@@ -224,7 +224,13 @@
 
     <!-- Zone de contenu -->
     <main class="main-content">
-      <div class="account-status-banner" id="account-status-banner" role="status" aria-live="polite" hidden></div>
+      <div class="account-status-banner" id="account-status-banner" role="status" aria-live="polite" hidden>
+        <div class="account-status-content">
+          <strong id="account-status-title"></strong>
+          <p id="account-status-message"></p>
+        </div>
+        <div class="account-status-actions" id="account-status-actions"></div>
+      </div>
 
       <!-- ================= SECTION : ACCUEIL ================= -->
       <section class="content-section active" id="section-home">
@@ -359,7 +365,7 @@
         <div class="admin-panel">
           <div class="admin-panel-header">
             <div>
-              <h2>Demandes en attente</h2>
+              <h2>Demandes en attente <span class="admin-pending-count" id="admin-pending-count" hidden></span></h2>
               <p>Seules les adresses e-mail confirmées apparaissent ici.</p>
             </div>
             <button class="btn btn-outline btn-sm" id="admin-refresh-btn" type="button">Actualiser</button>

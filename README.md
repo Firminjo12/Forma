@@ -104,7 +104,9 @@ Les nouvelles inscriptions sont en attente par défaut. Pour activer l'espace d'
    select id from auth.users where email = 'admin@example.com'
    on conflict (user_id) do nothing;
    ```
-4. Connectez-vous avec ce compte. Le lien **Administration** apparaît dans le menu des formations et permet d'approuver ou de refuser les inscriptions en attente.
+4. Connectez-vous avec ce compte. Le bouton **Administration** apparaît dans la barre supérieure. L'espace indique le nombre de demandes en attente et leur date d'inscription ; une confirmation est demandée avant tout refus.
+
+Les apprenants voient leur état de compte (adresse e-mail à confirmer, demande en attente, compte approuvé ou inscription non approuvée) et l'action correspondante. Ils peuvent renvoyer le lien de confirmation ou actualiser leur statut.
 
 Les contrôles de rôle et les décisions d'approbation sont exécutés par les fonctions SQL Supabase et vérifiés côté base de données. Le site étant statique, cette approbation contrôle l'accès aux parcours dans l'interface ; le contenu HTML public ne doit pas servir à protéger des informations confidentielles.
 

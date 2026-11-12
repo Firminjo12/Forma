@@ -187,18 +187,90 @@ class App {
 
   renderAccountStatus(state) {
     const banner = document.getElementById('account-status-banner');
-    if (!banner) return;
+    const title = document.getElementById('account-status-title');
+    const messageElement = document.getElementById('account-status-message');
+    const actions = document.getElementById('account-status-actions');
+    if (!banner || !title || !messageElement || !actions) return;
 
-    const messages = {
-      'pending-email': 'Confirmez votre adresse e-mail. Votre demande pourra ensuite être examinée par un administrateur.',
-      pending: 'Votre demande d’inscription est en attente d’approbation par un administrateur.',
-      rejected: 'Votre inscription n’a pas été approuvée. Contactez l’administrateur.',
-      error: 'Impossible de vérifier l’état de votre inscription. Réessayez plus tard.'
+    const statuses = {
+      loading: {
+        title: 'Vérification de votre inscription',
+        message: 'Veuillez patienter pendant la vérification de votre compte.'
+      },
+      'pending-email': {
+        title: 'Adresse e-mail à confirmer',
+        message: 'Confirmez votre adresse e-mail pour que l’administrateur puisse examiner votre demande.'
+      },
+      pending: {
+        title: 'Demande en attente',
+        message: 'Votre adresse est confirmée. Un administrateur doit encore approuver votre accès aux formations.'
+      },
+      approved: {
+        title: state.isAdmin ? 'Accès administrateur actif' : 'Compte approuvé',
+        message: 'Votre compte est approuvé. Vous pouvez accéder aux formations.'
+      },
+      rejected: {
+        title: 'Inscription non approuvée',
+        message: 'Votre compte n’a pas été approuvé. Contactez l’administrateur si vous pensez qu’il s’agit d’une erreur.'
+      },
+      error: {
+        title: 'Vérification impossible',
+        message: 'Impossible de vérifier l’état de votre inscription. Réessayez.'
+      },
+      'signed-out': {
+        title: 'Connexion nécessaire',
+        message: 'Connectez-vous pour accéder aux formations.'
+      }
     };
-    const message = state.message || messages[state.status] || '';
-    banner.textContent = message;
-    banner.hidden = !message;
+    const status = statuses[state.status];
+    if (!status || (state.status === 'signed-out' && !state.message)) {
+      banner.hidden = true;
+      actions.replaceChildren();
+      return;
+    }
+
+    title.textContent = status.title;
+    messageElement.textContent = state.message || status.message;
+    banner.hidden = false;
     banner.classList.toggle('error', state.status === 'rejected' || state.status === 'error');
+    banner.classList.toggle('success', state.status === 'approved');
+    actions.replaceChildren();
+
+    if (state.status === 'pending-email') {
+      const resendButton = document.createElement('button');
+      resendButton.className = 'btn btn-outline btn-sm';
+      resendButton.type = 'button';
+      resendButton.textContent = 'Renvoyer le lien de confirmation';
+      resendButton.addEventListener('click', () => {
+        window.dispatchEvent(new Event('request-email-confirmation'));
+      });
+      actions.append(resendButton);
+    } else if (state.status === 'approved') {
+      const coursesButton = document.createElement('button');
+      coursesButton.className = 'btn btn-primary btn-sm';
+      coursesButton.type = 'button';
+      coursesButton.textContent = 'Voir les formations';
+      coursesButton.addEventListener('click', () => this.navigateTo('cours-bases'));
+      actions.append(coursesButton);
+    } else if (state.status === 'signed-out') {
+      const signInButton = document.createElement('button');
+      signInButton.className = 'btn btn-primary btn-sm';
+      signInButton.type = 'button';
+      signInButton.textContent = 'Se connecter';
+      signInButton.addEventListener('click', () => {
+        window.dispatchEvent(new Event('request-authentication'));
+      });
+      actions.append(signInButton);
+    } else {
+      const refreshButton = document.createElement('button');
+      refreshButton.className = 'btn btn-outline btn-sm';
+      refreshButton.type = 'button';
+      refreshButton.textContent = 'Actualiser mon statut';
+      refreshButton.addEventListener('click', () => {
+        window.dispatchEvent(new Event('refresh-registration-state'));
+      });
+      actions.append(refreshButton);
+    }
   }
 
   markCompleted(moduleId) {
