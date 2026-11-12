@@ -62,6 +62,8 @@ class KeyboardTrainer {
 
     // Écoute des touches pour illuminer le clavier virtuel
     window.addEventListener('keydown', (e) => {
+      if (typeof e.key !== 'string' || e.key.length === 0) return;
+
       this.highlightKey(e.key.toUpperCase(), true);
       if (this.keyPressDisplay) {
         let name = e.key;
@@ -73,11 +75,15 @@ class KeyboardTrainer {
     });
 
     window.addEventListener('keyup', (e) => {
+      if (typeof e.key !== 'string' || e.key.length === 0) return;
+
       this.highlightKey(e.key.toUpperCase(), false);
     });
   }
 
   highlightKey(keyChar, isPressed) {
+    if (typeof keyChar !== 'string' || keyChar.length === 0) return;
+
     const keyElements = document.querySelectorAll('.key-cap');
     keyElements.forEach((el) => {
       const keyVal = el.getAttribute('data-key');

@@ -6,7 +6,7 @@ Une plateforme web éducative, accessible, interactive et moderne conçue pour l
 
 ## 🎯 Fonctionnalités et Contenus
 
-La plateforme est articulée autour de **5 modules thématiques**, d'ateliers pratiques interactifs, d'un quiz d'évaluation et d'un générateur de certificat :
+La plateforme propose deux cours distincts : le parcours **Bases de l'ordinateur** (5 modules et un quiz) et le cours indépendant **Bureautique**.
 
 1. **Module 1 : Anatomie & Matériel**
    - Distinction matérielle (*Hardware*) et logicielle (*Software*).
@@ -40,7 +40,13 @@ La plateforme est articulée autour de **5 modules thématiques**, d'ateliers pr
    - Différence entre barre d'adresse et moteur de recherche.
    - Les 4 règles d'or de la cybersécurité (mots de passe forts, détection du phishing / hameçonnage, cadenas HTTPS).
 
-6. **Évaluation Finale (Quiz interactif)**
+**Cours indépendant : Bureautique**
+   - Premiers pas en traitement de texte avec Word ou LibreOffice Writer.
+   - Organisation des données et formules de base avec Excel ou LibreOffice Calc.
+   - Création d'un diaporama avec PowerPoint ou LibreOffice Impress.
+   - Enregistrement des documents, raccourcis utiles et export en PDF.
+
+**Évaluation finale du cours Bases de l'ordinateur (Quiz interactif)**
    - 10 questions à choix multiples avec explications immédiates et calcul du score.
    - Déblocage de l'attestation de réussite dès 7/10.
 
@@ -72,6 +78,36 @@ python3 -m http.server 8000
 ```
 Puis ouvrez votre navigateur à l'adresse : [http://localhost:8000](http://localhost:8000).
 
+### Configurer l'inscription et la connexion
+L'authentification utilise Supabase. Pour l'activer :
+
+1. Créez un projet Supabase, activez l'authentification par e-mail et mot de passe et laissez activée la confirmation d'adresse e-mail.
+2. Dans les paramètres d'authentification Supabase, définissez l'URL du site et autorisez son URL locale (par exemple `http://localhost:8000`) ainsi que l'URL de production.
+3. Récupérez l'URL du projet et sa **clé publishable** (ou l'ancienne clé `anon`) dans les paramètres API.
+4. Remplacez les deux valeurs vides dans `js/supabase-config.js`.
+5. Ouvrez le site avec un serveur HTTP, par exemple `python3 -m http.server 8000`. La connexion ne fonctionne pas en ouvrant directement `index.html` en `file://`.
+
+La page s'affiche sans attendre le chargement du SDK Supabase. La connexion et l'inscription nécessitent toutefois une connexion Internet permettant d'accéder à `unpkg.com` et à votre projet Supabase. Les liens de confirmation reviennent vers l'adresse depuis laquelle l'inscription a été faite : utilisez un serveur local (`http://localhost:8000`), pas `file://`.
+
+Dans **Authentication → URL Configuration** de Supabase, ajoutez l'adresse locale utilisée (par exemple `http://localhost:8000/**`) à **Redirect URLs**. Le lien de confirmation envoyé précédemment peut encore pointer vers l'ancienne adresse ; ouvrez le formulaire de connexion, saisissez la même adresse e-mail et cliquez sur **Renvoyer le lien de confirmation**.
+
+La clé publishable est destinée au navigateur ; ne mettez jamais une clé `service_role` ou une clé secrète dans ce fichier. L'inscription, la connexion, la confirmation d'adresse e-mail, la récupération du mot de passe et la déconnexion sont gérées par Supabase. Pour l'instant, le profil apprenant et la progression restent enregistrés dans le navigateur et ne sont pas synchronisés entre appareils.
+
+### Activer l'approbation par un administrateur
+Les nouvelles inscriptions sont en attente par défaut. Pour activer l'espace d'administration :
+
+1. Après avoir configuré Supabase, exécutez le fichier `supabase/migrations/20261112205000_registration_approval.sql` dans le SQL Editor de votre projet.
+2. Créez un compte normal avec l'adresse e-mail qui doit devenir administrateur, puis confirmez cette adresse.
+3. Dans le SQL Editor Supabase, attribuez le rôle administrateur à ce compte en remplaçant l'adresse dans cette commande :
+   ```sql
+   insert into public.admin_users (user_id)
+   select id from auth.users where email = 'admin@example.com'
+   on conflict (user_id) do nothing;
+   ```
+4. Connectez-vous avec ce compte. Le lien **Administration** apparaît dans le menu des formations et permet d'approuver ou de refuser les inscriptions en attente.
+
+Les contrôles de rôle et les décisions d'approbation sont exécutés par les fonctions SQL Supabase et vérifiés côté base de données. Le site étant statique, cette approbation contrôle l'accès aux parcours dans l'interface ; le contenu HTML public ne doit pas servir à protéger des informations confidentielles.
+
 ---
 
 ## 📁 Structure des fichiers
@@ -80,6 +116,7 @@ Puis ouvrez votre navigateur à l'adresse : [http://localhost:8000](http://local
 forma/
 ├── index.html            # Structure HTML sémantique et complète
 ├── README.md             # Documentation du projet
+├── assets/               # Ressources et icônes
 ├── video/                # Vidéo tutorielle (Comment allumer son PC portable)
 ├── css/
 │   └── style.css         # Design responsive, moderne et accessible
@@ -89,6 +126,10 @@ forma/
 │   ├── keyboard-trainer.js # Atelier clavier interactif & détection des touches
 │   ├── file-copy-trainer.js # Exercice simulé de copie de fichiers sous Windows
 │   ├── desktop-sim.js    # Simulateur de bureau virtuel avec fenêtres
-│   └── quiz.js           # Moteur du quiz d'évaluation et validation
-└── assets/               # Ressources et icônes
+│   ├── quiz.js           # Moteur du quiz d'évaluation et validation
+│   ├── auth.js           # Inscription, connexion et récupération du mot de passe Supabase
+│   └── supabase-config.js # URL et clé publique du projet Supabase
+└── supabase/
+    └── migrations/
+        └── 20261112205000_registration_approval.sql # Comptes en attente et fonctions admin sécurisées
 ```

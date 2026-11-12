@@ -7,7 +7,7 @@
   <meta name="description" content="Plateforme d'apprentissage gratuite et interactive pour maîtriser les bases de l'ordinateur : matériel, souris, clavier, bureau Windows, fichiers et Internet.">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="home-page">
 
   <!-- Barre de navigation supérieure -->
   <header class="navbar">
@@ -22,6 +22,12 @@
 
       <!-- Outils d'accessibilité -->
       <div class="nav-tools">
+        <button class="btn btn-outline btn-sm" id="auth-open-btn" type="button" aria-haspopup="dialog" aria-controls="auth-dialog">
+          Se connecter
+        </button>
+        <button class="btn btn-outline btn-sm" id="auth-signout-btn" type="button" hidden>
+          Déconnexion
+        </button>
         <button class="profile-trigger" id="profile-open-btn" type="button" aria-haspopup="dialog" aria-controls="profile-dialog">
           <span class="profile-avatar" id="profile-nav-avatar" aria-hidden="true">🙂</span>
           <span id="profile-nav-name">Mon profil</span>
@@ -45,7 +51,7 @@
         </div>
         <button class="profile-close-btn" id="profile-close-btn" type="button" aria-label="Fermer le profil">✕</button>
       </div>
-      <p class="profile-private-note">Ces informations sont enregistrées uniquement dans ce navigateur. Aucun compte n'est créé.</p>
+      <p class="profile-private-note">Les informations de ce profil sont enregistrées uniquement dans ce navigateur.</p>
 
       <label for="profile-first-name">Prénom</label>
       <input id="profile-first-name" name="firstName" type="text" maxlength="40" autocomplete="given-name" required>
@@ -81,15 +87,45 @@
     </form>
   </dialog>
 
+  <dialog class="profile-dialog" id="auth-dialog" aria-labelledby="auth-dialog-title">
+    <form id="auth-form">
+      <div class="profile-dialog-header">
+        <div>
+          <span class="module-badge">🔐 Compte apprenant</span>
+          <h2 id="auth-dialog-title">Se connecter</h2>
+        </div>
+        <button class="profile-close-btn" id="auth-close-btn" type="button" aria-label="Fermer la fenêtre de connexion">✕</button>
+      </div>
+      <p class="profile-private-note" id="auth-description">Connectez-vous avec votre adresse e-mail et votre mot de passe. Le profil et la progression restent enregistrés dans ce navigateur.</p>
+
+      <div id="auth-email-group">
+        <label for="auth-email">Adresse e-mail</label>
+        <input id="auth-email" name="email" type="email" autocomplete="email" required>
+      </div>
+
+      <label for="auth-password" id="auth-password-label">Mot de passe</label>
+      <input id="auth-password" name="password" type="password" autocomplete="current-password" minlength="8" required>
+
+      <p class="auth-message" id="auth-message" role="status" aria-live="polite"></p>
+
+      <div class="profile-dialog-actions">
+        <button class="btn btn-outline" id="auth-mode-toggle" type="button">Créer un compte</button>
+        <button class="btn btn-outline" id="auth-resend-btn" type="button" hidden>Renvoyer le lien de confirmation</button>
+        <button class="btn btn-outline" id="auth-reset-btn" type="button">Mot de passe oublié ?</button>
+        <button class="btn btn-primary" id="auth-submit-btn" type="submit">Se connecter</button>
+      </div>
+    </form>
+  </dialog>
+
   <!-- Disposition principale -->
-  <div class="app-layout">
+  <div class="app-layout home-view">
     
     <!-- Sidebar de navigation -->
     <aside class="sidebar">
       <!-- Widget de progression -->
-      <div class="progress-widget">
+      <div class="progress-widget" data-course-navigation="base">
         <div class="progress-header">
-          <span>Progression globale</span>
+          <span>Progression — Bases</span>
           <span id="global-progress-label">0%</span>
         </div>
         <div class="progress-track">
@@ -97,18 +133,18 @@
         </div>
       </div>
 
-      <div>
-        <div class="sidebar-title">Parcours d'apprentissage</div>
+      <div class="sidebar-course-nav" data-course-navigation="base">
+        <div class="sidebar-title">Bases de l'ordinateur</div>
         <ul class="module-nav-list">
           <li>
-            <a class="module-link active" data-target-section="home">
-              <span class="module-icon">🏠</span>
-              <span>Accueil</span>
+            <a class="module-link" data-target-section="cours-bases">
+              <span class="module-icon">ℹ️</span>
+              <span>Présentation du cours</span>
             </a>
           </li>
           <li>
             <a class="module-link" data-target-section="mod1">
-              <span class="module-icon">📦</span>
+              <span class="module-icon">1️⃣</span>
               <span>1. Anatomie & Matériel</span>
               <span class="module-status">1</span>
             </a>
@@ -116,7 +152,7 @@
           <li>
             <a class="module-link" data-target-section="mod3">
               <span class="module-icon">🖥️</span>
-              <span>2. Présentation du Bureau</span>
+              <span>2. Bureau Windows</span>
               <span class="module-status">2</span>
             </a>
           </li>
@@ -144,8 +180,33 @@
           <li>
             <a class="module-link" data-target-section="quiz">
               <span class="module-icon">📝</span>
-              <span>6. Quiz d'Évaluation</span>
+              <span>6. Quiz final</span>
               <span class="module-status">6</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-course-nav" data-course-navigation="bureautique">
+        <div class="sidebar-title">Cours indépendant : Bureautique</div>
+        <ul class="module-nav-list">
+          <li>
+            <a class="module-link" data-target-section="bureautique">
+              <span class="module-icon">🗂️</span>
+              <span>Word, Excel & PowerPoint</span>
+              <span class="module-status">▶</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-course-nav" data-course-navigation="shared">
+        <div class="sidebar-title">Ressources</div>
+        <ul class="module-nav-list">
+          <li>
+            <a class="module-link" data-target-section="admin" id="admin-nav-link" hidden>
+              <span class="module-icon">🛡️</span>
+              <span>Administration</span>
             </a>
           </li>
           <li>
@@ -166,67 +227,155 @@
 
     <!-- Zone de contenu -->
     <main class="main-content">
+      <div class="account-status-banner" id="account-status-banner" role="status" aria-live="polite" hidden></div>
 
       <!-- ================= SECTION : ACCUEIL ================= -->
       <section class="content-section active" id="section-home">
+        <div class="home-hero">
+          <div class="home-hero-content">
+            <span class="module-badge">Plateforme de formation numérique</span>
+            <h1>Le numérique, avec confiance et à votre rythme.</h1>
+            <p>Bienvenue sur InfoDébutant. Apprenez, pratiquez et développez vos compétences grâce à des explications accessibles et des activités conçues pour progresser étape par étape.</p>
+            <div class="home-hero-actions">
+              <button class="btn btn-primary" type="button" data-auth-mode="signup">Créer mon compte</button>
+              <a class="btn btn-outline" data-target-section="glossaire">Consulter le glossaire</a>
+            </div>
+            <p class="home-hero-note">Un espace simple pour apprendre en toute autonomie.</p>
+          </div>
+          <div class="home-hero-art" aria-hidden="true">
+            <div class="home-art-window">
+              <span class="home-art-dots"><i></i><i></i><i></i></span>
+              <div class="home-art-screen">💻</div>
+              <div class="home-art-lines"><i></i><i></i><i></i></div>
+            </div>
+            <span class="home-art-badge home-art-badge-top">✦ Apprendre</span>
+            <span class="home-art-badge home-art-badge-bottom">✓ Progresser</span>
+          </div>
+        </div>
+
+        <section class="home-overview" aria-labelledby="home-overview-title">
+          <div class="home-section-heading">
+            <span class="home-eyebrow">APPRENDRE AUTREMENT</span>
+            <h2 id="home-overview-title">Une expérience pensée pour vous</h2>
+            <p>Des ressources claires et des outils pratiques vous accompagnent à chaque étape.</p>
+          </div>
+          <div class="home-feature-grid">
+            <article class="home-feature-card">
+              <span class="home-feature-icon">🧭</span>
+              <h3>Un chemin clair</h3>
+              <p>Des leçons organisées pour vous aider à avancer progressivement et à retrouver facilement vos repères.</p>
+            </article>
+            <article class="home-feature-card">
+              <span class="home-feature-icon">✍️</span>
+              <h3>La pratique avant tout</h3>
+              <p>Des exercices et des simulateurs interactifs pour mettre en application les notions abordées.</p>
+            </article>
+            <article class="home-feature-card">
+              <span class="home-feature-icon">♿</span>
+              <h3>À votre rythme</h3>
+              <p>Adaptez l’affichage, écoutez les leçons et apprenez quand vous le souhaitez.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="home-courses" aria-labelledby="home-courses-title">
+          <div class="home-section-heading">
+            <span class="home-eyebrow">NOS FORMATIONS</span>
+            <h2 id="home-courses-title">Choisissez votre parcours</h2>
+            <p>Commencez par la formation qui correspond à vos besoins. Vous pourrez avancer à votre rythme.</p>
+          </div>
+          <div class="home-course-grid">
+            <article class="home-course-card">
+              <span class="home-course-icon">💻</span>
+              <span class="module-badge">Parcours débutant</span>
+              <h3>Bases de l’ordinateur</h3>
+              <p>Découvrez le matériel, le bureau, la souris, le clavier, les fichiers et les bons réflexes sur Internet.</p>
+              <a class="btn btn-primary" data-target-section="cours-bases">Découvrir la formation <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="home-course-card">
+              <span class="home-course-icon">🗂️</span>
+              <span class="module-badge">Cours pratique</span>
+              <h3>Bureautique</h3>
+              <p>Apprenez à rédiger des documents, organiser des données et créer des présentations.</p>
+              <a class="btn btn-outline" data-target-section="bureautique">Découvrir la formation <span aria-hidden="true">→</span></a>
+            </article>
+          </div>
+        </section>
+
+        <section class="home-bottom-banner" aria-label="Accès à votre espace">
+          <div>
+            <h2>Prêt à développer vos compétences ?</h2>
+            <p>Connectez-vous ou créez votre espace apprenant pour commencer.</p>
+          </div>
+          <button class="btn btn-primary" type="button" data-auth-mode="signup">Accéder à mon espace</button>
+        </section>
+      </section>
+
+      <!-- ================= PRÉSENTATION : BASES DE L'ORDINATEUR ================= -->
+      <section class="content-section" id="section-cours-bases" data-course="base">
         <div class="module-header">
-          <span class="module-badge">👋 Bienvenue à tous</span>
-          <h1>Apprendre l'ordinateur pas à pas, sans stress</h1>
-          <p>Une formation conçue spécialement pour les grands débutants. Découvrez comment fonctionne un ordinateur à votre propre rythme, grâce à des explications simples et des exercices interactifs amusants.</p>
+          <span class="module-badge">💻 Formation débutant</span>
+          <h1>Cours : Bases de l’ordinateur</h1>
+          <p>Un parcours progressif pour apprendre à utiliser un ordinateur, comprendre ses outils et naviguer sur Internet en toute confiance.</p>
         </div>
 
-        <div class="callout tip">
-          <div class="callout-icon">💡</div>
+        <div class="callout info">
+          <div class="callout-icon">📚</div>
           <div class="callout-content">
-            <h4>Vous avez peur de faire une bêtise ? Rassurez-vous !</h4>
-            <p>Il est presque impossible de casser un ordinateur simplement en cliquant ou en appuyant sur des touches. Les ordinateurs modernes sont faits pour vous accompagner. Prenez le temps de pratiquer !</p>
+            <h4>Ce cours porte sur les bases de l’informatique</h4>
+            <p>Vous allez découvrir le matériel, le bureau de l’ordinateur, la souris et le clavier, puis apprendre à gérer vos fichiers et à utiliser Internet en sécurité. Ce parcours est distinct du cours de bureautique.</p>
           </div>
         </div>
 
-        <h2 style="margin: 2rem 0 1rem 0;">Ce que vous allez apprendre :</h2>
-        <div class="cards-grid">
-          <div class="lesson-card">
-            <span class="card-icon">🖥️</span>
-            <h3>1. Anatomie & Allumage</h3>
-            <p>Comprendre chaque composant et visionner le tutoriel vidéo pas à pas pour allumer son ordinateur en toute confiance.</p>
-          </div>
-          <div class="lesson-card">
-            <span class="card-icon">🖱️</span>
-            <h3>2. La souris et le clavier</h3>
-            <p>Entraînez-vous avec des mini-jeux interactifs : clic, double-clic, glisser-déposer et frappe de texte.</p>
-          </div>
-          <div class="lesson-card">
-            <span class="card-icon">🪟</span>
-            <h3>3. Le système et le Bureau</h3>
-            <p>Naviguez sur un simulateur de bureau réaliste, ouvrez des fenêtres et apprenez à éteindre proprement.</p>
-          </div>
-          <div class="lesson-card">
-            <span class="card-icon">📁</span>
-            <h3>4. Fichiers et dossiers</h3>
-            <p>Comprenez comment ranger vos documents, photos, et utiliser la corbeille en toute sérénité.</p>
-          </div>
-          <div class="lesson-card">
-            <span class="card-icon">🛡️</span>
-            <h3>5. Internet en sécurité</h3>
-            <p>Naviguer sur le Web, faire des recherches et éviter les pièges et faux e-mails (phishing).</p>
-          </div>
-          <div class="lesson-card">
-            <span class="card-icon">🏆</span>
-            <h3>6. Quiz & Certificat</h3>
-            <p>Validez vos acquis avec notre quiz et repartez avec votre attestation personnalisée à imprimer.</p>
-          </div>
+        <div class="home-course-grid">
+          <article class="home-course-card">
+            <span class="home-course-icon">🖥️</span>
+            <h3>Comprendre l’ordinateur</h3>
+            <p>Repérer les composants et comprendre le rôle du matériel.</p>
+          </article>
+          <article class="home-course-card">
+            <span class="home-course-icon">🖱️</span>
+            <h3>Utiliser les outils essentiels</h3>
+            <p>Découvrir le bureau, s’exercer à la souris et au clavier.</p>
+          </article>
+          <article class="home-course-card">
+            <span class="home-course-icon">📁</span>
+            <h3>Organiser et naviguer</h3>
+            <p>Ranger ses fichiers et adopter les bons réflexes sur Internet.</p>
+          </article>
         </div>
 
-        <div style="margin-top: 2.5rem; text-align: center; background: var(--bg-alt); padding: 2rem; border-radius: var(--radius-lg);">
-          <h3 style="margin-bottom: 0.5rem;">Prêt(e) à commencer votre premier cours ?</h3>
-          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Aucune inscription requise, vous pouvez commencer immédiatement.</p>
-          <a class="btn btn-primary" data-target-section="mod1">🚀 Démarrer le Module 1 : Anatomie de l'ordinateur</a>
+        <div class="module-pagination">
+          <a class="btn btn-outline" data-target-section="home">⬅️ Retour à l’accueil</a>
+          <a class="btn btn-primary" data-target-section="mod1">Commencer le cours : Anatomie & Matériel ➡️</a>
+        </div>
+      </section>
+
+      <!-- ================= ADMINISTRATION DES INSCRIPTIONS ================= -->
+      <section class="content-section" id="section-admin" data-course="admin">
+        <div class="module-header">
+          <span class="module-badge">🛡️ Administration</span>
+          <h1>Gestion des inscriptions</h1>
+          <p>Examinez les demandes et approuvez uniquement les comptes autorisés à accéder aux formations.</p>
+        </div>
+
+        <div class="admin-panel">
+          <div class="admin-panel-header">
+            <div>
+              <h2>Demandes en attente</h2>
+              <p>Seules les adresses e-mail confirmées apparaissent ici.</p>
+            </div>
+            <button class="btn btn-outline btn-sm" id="admin-refresh-btn" type="button">Actualiser</button>
+          </div>
+          <p class="admin-feedback" id="admin-feedback" role="status" aria-live="polite"></p>
+          <ul class="admin-signup-list" id="admin-signup-list" aria-label="Inscriptions en attente"></ul>
+          <p class="admin-empty-state" id="admin-empty-state" hidden>Aucune inscription en attente.</p>
         </div>
       </section>
 
 
       <!-- ================= SECTION : MODULE 1 ================= -->
-      <section class="content-section" id="section-mod1">
+      <section class="content-section" id="section-mod1" data-course="base">
         <div class="module-header">
           <span class="module-badge">📦 Module 1</span>
           <h1>Qu'est-ce qu'un ordinateur et comment est-il composé ?</h1>
@@ -333,7 +482,7 @@
 
 
       <!-- ================= SECTION : MODULE 2 ================= -->
-      <section class="content-section" id="section-mod2">
+      <section class="content-section" id="section-mod2" data-course="base">
         <div class="module-header">
           <span class="module-badge">🖱️ Module 2</span>
           <h1>Maîtriser la Souris et le Clavier</h1>
@@ -539,7 +688,7 @@
 
 
       <!-- ================= SECTION : MODULE 3 ================= -->
-      <section class="content-section" id="section-mod3">
+      <section class="content-section" id="section-mod3" data-course="base">
         <div class="module-header">
           <span class="module-badge">🖥️ Module 3</span>
           <h1>Le Système d'Exploitation et le Bureau</h1>
@@ -748,7 +897,7 @@
 
 
       <!-- ================= SECTION : MODULE 4 ================= -->
-      <section class="content-section" id="section-mod4">
+      <section class="content-section" id="section-mod4" data-course="base">
         <div class="module-header">
           <span class="module-badge">📁 Module 4</span>
           <h1>Comprendre et Ranger ses Fichiers et Dossiers</h1>
@@ -942,7 +1091,7 @@
 
 
       <!-- ================= SECTION : MODULE 5 ================= -->
-      <section class="content-section" id="section-mod5">
+      <section class="content-section" id="section-mod5" data-course="base">
         <div class="module-header">
           <span class="module-badge">🌐 Module 5</span>
           <h1>Découvrir Internet et Naviguer en Toute Sécurité</h1>
@@ -1010,11 +1159,64 @@
         </div>
       </section>
 
+      <!-- ================= COURS À PART : BUREAUTIQUE ================= -->
+      <section class="content-section" id="section-bureautique" data-course="bureautique">
+        <div class="module-header">
+          <span class="module-badge">🗂️ Cours de bureautique</span>
+          <h1>Un cours à part : Word, Excel et PowerPoint</h1>
+          <p>Apprenez à créer des documents, organiser des données et présenter vos idées avec Word, Excel et PowerPoint. Les notions s'appliquent aussi à LibreOffice Writer, Calc et Impress.</p>
+          <button class="read-aloud-btn">🔊 Écouter la leçon</button>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <h4>Les logiciels peuvent avoir des noms différents</h4>
+            <p>Microsoft Office est payant selon la formule choisie. LibreOffice est une suite gratuite : Writer sert à rédiger, Calc à faire des tableaux et Impress à créer des présentations. Les boutons peuvent changer d'apparence, mais les principes restent les mêmes.</p>
+          </div>
+        </div>
+
+        <h2>Trois outils pour vos tâches du quotidien</h2>
+        <div class="cards-grid">
+          <article class="lesson-card">
+            <span class="card-icon">📝</span>
+            <h3>1. Rédiger avec Word ou Writer</h3>
+            <p>Créez une lettre ou un compte rendu : ouvrez un document vierge, saisissez votre texte, sélectionnez-le pour le mettre en forme, puis enregistrez-le dans un dossier.</p>
+            <p><strong>À pratiquer :</strong> donnez un titre à votre document, mettez-le en gras avec <kbd>Ctrl</kbd> + <kbd>B</kbd>, puis enregistrez une copie en PDF pour la partager facilement.</p>
+          </article>
+          <article class="lesson-card">
+            <span class="card-icon">📊</span>
+            <h3>2. Calculer avec Excel ou Calc</h3>
+            <p>Un tableur est composé de lignes, de colonnes et de cellules. Chaque cellule possède une adresse, par exemple A1. Saisissez des nombres, puis commencez une formule par le signe égal.</p>
+            <p><strong>À pratiquer :</strong> inscrivez deux nombres dans B2 et B3, puis tapez <code>=B2+B3</code> dans B4. Modifiez une valeur : le résultat se met à jour automatiquement.</p>
+          </article>
+          <article class="lesson-card">
+            <span class="card-icon">🎞️</span>
+            <h3>3. Présenter avec PowerPoint ou Impress</h3>
+            <p>Une présentation est composée de diapositives. Ajoutez un titre et quelques idées par diapositive, choisissez un thème lisible et insérez une image utile.</p>
+            <p><strong>À pratiquer :</strong> créez trois diapositives : un titre, vos trois idées principales et une conclusion. Lancez le diaporama pour vérifier l'ordre et la lisibilité.</p>
+          </article>
+        </div>
+
+        <div class="callout tip">
+          <div class="callout-icon">💾</div>
+          <div class="callout-content">
+            <h4>Le bon réflexe : enregistrer régulièrement</h4>
+            <p>Utilisez <kbd>Ctrl</kbd> + <kbd>S</kbd> pour enregistrer. Choisissez un dossier facile à retrouver et donnez un nom explicite à votre fichier. Gardez le format modifiable pour continuer à travailler et exportez en PDF lorsque vous souhaitez partager une version facile à lire.</p>
+          </div>
+        </div>
+
+        <div class="module-pagination">
+          <a class="btn btn-outline" data-target-section="home">⬅️ Retour aux cours</a>
+          <a class="btn btn-primary" data-target-section="home" onclick="window.appState.markCompleted('bureautique')">Terminer ce cours</a>
+        </div>
+      </section>
+
 
       <!-- ================= SECTION : QUIZ ================= -->
-      <section class="content-section" id="section-quiz">
+      <section class="content-section" id="section-quiz" data-course="base">
         <div class="module-header">
-          <span class="module-badge">📝 Évaluation</span>
+          <span class="module-badge">📝 Cours : Bases de l'ordinateur — Évaluation</span>
           <h1>Le Grand Quiz des Bases de l'Ordinateur</h1>
           <p>Répondez aux 10 questions pour tester ce que vous avez retenu. Obtenez au moins 7 bonnes réponses pour débloquer votre attestation !</p>
         </div>
@@ -1034,7 +1236,7 @@
         </div>
 
         <div class="module-pagination">
-          <a class="btn btn-outline" data-target-section="mod5">⬅️ Module 5</a>
+          <a class="btn btn-outline" data-target-section="mod5">⬅️ Module 5 : Internet & Sécurité</a>
           <a class="btn btn-primary" data-target-section="certificat">Accéder directement à l'Attestation 🎓</a>
         </div>
       </section>
@@ -1070,7 +1272,7 @@
               <div class="certif-recipient" id="certif-recipient-name">Votre Nom et Prénom</div>
               <br>
               pour avoir suivi avec succès l'ensemble du parcours de formation aux bases de l'informatique :
-              <em>Anatomie matérielle, Maîtrise de la souris et du clavier, Gestion des fichiers et dossiers, Navigation Web et Règles de sécurité élémentaires.</em>
+              <em>Anatomie matérielle, Maîtrise de la souris et du clavier, Gestion des fichiers et dossiers, Navigation Web, bureautique et règles de sécurité élémentaires.</em>
             </div>
 
             <div class="certif-footer">
@@ -1113,6 +1315,18 @@
             <p>L'écran principal qui apparaît lorsque vous allumez l'ordinateur, sur lequel se trouvent vos icônes et la barre des tâches.</p>
           </div>
           <div class="glossary-item">
+            <h4>Cellule</h4>
+            <p>Case d'un tableur située au croisement d'une ligne et d'une colonne, dans laquelle on peut saisir une donnée ou une formule.</p>
+          </div>
+          <div class="glossary-item">
+            <h4>Diapositive</h4>
+            <p>Une page d'une présentation projetée ou affichée à l'écran.</p>
+          </div>
+          <div class="glossary-item">
+            <h4>Formule</h4>
+            <p>Instruction de calcul d'un tableur, généralement commencée par le signe égal, par exemple =B2+B3.</p>
+          </div>
+          <div class="glossary-item">
             <h4>Bug</h4>
             <p>Un petit défaut ou une erreur dans un programme informatique qui l'empêche de fonctionner correctement.</p>
           </div>
@@ -1153,6 +1367,14 @@
             <p>La mémoire à court terme utilisée par les programmes en cours d'exécution. Elle s'efface complètement à l'extinction.</p>
           </div>
           <div class="glossary-item">
+            <h4>Tableur</h4>
+            <p>Logiciel qui organise des données en lignes et colonnes et permet d'effectuer des calculs, comme Excel ou Calc.</p>
+          </div>
+          <div class="glossary-item">
+            <h4>Traitement de texte</h4>
+            <p>Logiciel qui sert à rédiger et mettre en forme des documents, comme Word ou Writer.</p>
+          </div>
+          <div class="glossary-item">
             <h4>SSD / Disque Dur</h4>
             <p>L'espace de stockage permanent où restent gravés tous vos documents et photos même quand l'ordinateur est éteint.</p>
           </div>
@@ -1183,5 +1405,7 @@
   <script src="js/desktop-sim.js"></script>
   <script src="js/quiz.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
 </body>
 </html>

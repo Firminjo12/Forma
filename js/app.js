@@ -8,7 +8,8 @@ class App {
     this.completedModules = JSON.parse(localStorage.getItem('infodebutant_completed') || '[]');
     this.profile = JSON.parse(localStorage.getItem('infodebutant_profile') || '{"firstName":"","lastName":"","avatar":"🙂"}');
     this.quizScore = JSON.parse(localStorage.getItem('infodebutant_quiz_score') || 'null');
-    this.totalModules = 6; // modules 1 to 5 + quiz
+    this.baseCourseModules = ['mod1', 'mod2', 'mod3', 'mod4', 'mod5', 'quiz'];
+    this.totalModules = this.baseCourseModules.length;
     
     // Synthèse vocale
     this.speechSynth = window.speechSynthesis;
@@ -39,6 +40,34 @@ class App {
 
   /* ---------------- Navigation ---------------- */
   setupNavigation() {
+    window.addEventListener('registration-state-changed', (event) => {
+      this.renderAccountStatus(event.detail);
+      const currentSection = document.getElementById(`section-${this.currentSection}`);
+      const currentCourse = currentSection?.dataset.course;
+      if (!event.detail.isAdmin && event.detail.status !== 'approved' && currentCourse) {
+        this.navigateTo('home');
+      }
+
+      if (event.detail.status === 'approved' || event.detail.isAdmin) {
+        const pendingTarget = window.pendingCourseTarget;
+        window.pendingCourseTarget = '';
+        if (pendingTarget) this.navigateTo(pendingTarget);
+      } else if (event.detail.status === 'pending' || event.detail.status === 'pending-email' ||
+          event.detail.status === 'rejected') {
+        window.pendingCourseTarget = '';
+      } else if (event.detail.status === 'signed-out' && window.pendingCourseTarget) {
+        window.dispatchEvent(new Event('request-authentication'));
+      }
+    });
+
+    window.addEventListener('course-access-denied', (event) => {
+      const state = window.registrationState || {};
+      if (state.status === 'signed-out' || state.status === 'loading') {
+        window.dispatchEvent(new Event('request-authentication'));
+      }
+      this.renderAccountStatus({ ...state, message: event.detail.message });
+    });
+
     // Liens sidebar et liens d'action
     document.querySelectorAll('[data-target-section]').forEach((link) => {
       link.addEventListener('click', (e) => {
@@ -48,7 +77,7 @@ class App {
 
         // Fermer le menu mobile si ouvert
         const sidebar = document.querySelector('.sidebar');
-        if (sidebar && sidebar.classList.contains('open')) {
+        if (sidebar && link.closest('.sidebar') && sidebar.classList.contains('open')) {
           sidebar.classList.remove('open');
         }
       });
@@ -77,6 +106,31 @@ class App {
   navigateTo(sectionId, updateHash = true) {
     const targetSection = document.getElementById(`section-${sectionId}`);
     if (!targetSection) return;
+    const previousSection = this.currentSection;
+    const registrationState = window.registrationState || { status: 'loading', isAdmin: false };
+    const requiredCourse = targetSection.dataset.course;
+    const isAdmin = registrationState.isAdmin === true;
+    const isAllowed = requiredCourse === 'admin'
+      ? isAdmin
+      : !requiredCourse || requiredCourse === 'shared' || isAdmin || registrationState.status === 'approved';
+
+    if (!isAllowed) {
+      window.pendingCourseTarget = requiredCourse === 'admin' ? '' : sectionId;
+      const messages = {
+        loading: 'Vérification de votre inscription en cours. Veuillez réessayer dans un instant.',
+        'signed-out': 'Connectez-vous pour accéder aux cours.',
+        'pending-email': 'Confirmez votre adresse e-mail avant que votre inscription puisse être examinée.',
+        pending: 'Votre inscription est en attente d’approbation par un administrateur.',
+        rejected: 'Votre inscription n’a pas été approuvée. Contactez l’administrateur.',
+        error: 'Impossible de vérifier l’état de votre inscription. Réessayez plus tard.'
+      };
+      const message = requiredCourse === 'admin'
+        ? 'L’accès à l’administration est réservé aux administrateurs.'
+        : messages[registrationState.status] || messages.error;
+      window.dispatchEvent(new CustomEvent('course-access-denied', { detail: { message } }));
+      if (this.currentSection !== 'home') this.navigateTo('home', updateHash);
+      return;
+    }
 
     // Arrêter la lecture vocale si active
     this.stopSpeaking();
@@ -97,6 +151,20 @@ class App {
     targetSection.classList.add('active');
     this.currentSection = sectionId;
 
+    const appLayout = document.querySelector('.app-layout');
+    const course = targetSection.dataset.course ||
+      (sectionId === 'certificat' ? 'base' : sectionId === 'glossaire' ? 'shared' : '');
+    if (appLayout) {
+      appLayout.classList.toggle('home-view', sectionId === 'home');
+      appLayout.dataset.currentCourse = course;
+    }
+    document.body.classList.toggle('home-page', sectionId === 'home');
+    const sidebar = document.querySelector('.sidebar');
+    if (sectionId !== 'home' && previousSection === 'home' &&
+        window.matchMedia('(max-width: 900px)').matches && sidebar) {
+      sidebar.classList.add('open');
+    }
+
     // Mettre à jour l'état actif dans la sidebar
     document.querySelectorAll('.module-link').forEach((link) => {
       if (link.getAttribute('data-target-section') === sectionId) {
@@ -110,7 +178,27 @@ class App {
       window.location.hash = sectionId;
     }
 
+    if (sectionId === 'admin') {
+      window.dispatchEvent(new Event('admin-section-open'));
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  renderAccountStatus(state) {
+    const banner = document.getElementById('account-status-banner');
+    if (!banner) return;
+
+    const messages = {
+      'pending-email': 'Confirmez votre adresse e-mail. Votre demande pourra ensuite être examinée par un administrateur.',
+      pending: 'Votre demande d’inscription est en attente d’approbation par un administrateur.',
+      rejected: 'Votre inscription n’a pas été approuvée. Contactez l’administrateur.',
+      error: 'Impossible de vérifier l’état de votre inscription. Réessayez plus tard.'
+    };
+    const message = state.message || messages[state.status] || '';
+    banner.textContent = message;
+    banner.hidden = !message;
+    banner.classList.toggle('error', state.status === 'rejected' || state.status === 'error');
   }
 
   markCompleted(moduleId) {
@@ -128,7 +216,8 @@ class App {
   }
 
   updateProgressUI() {
-    const percent = Math.min(100, Math.round((this.completedModules.length / this.totalModules) * 100));
+    const completedBaseModules = this.baseCourseModules.filter((moduleId) => this.completedModules.includes(moduleId));
+    const percent = Math.round((completedBaseModules.length / this.totalModules) * 100);
     const progressBar = document.getElementById('global-progress-bar');
     const progressLabel = document.getElementById('global-progress-label');
 
@@ -199,8 +288,8 @@ class App {
     const name = document.getElementById('profile-nav-name');
     const progress = document.getElementById('profile-progress-value');
     const score = document.getElementById('profile-quiz-score');
-    const completedCount = Math.min(this.completedModules.length, this.totalModules);
-    const percent = Math.min(100, Math.round((completedCount / this.totalModules) * 100));
+    const completedCount = this.baseCourseModules.filter((moduleId) => this.completedModules.includes(moduleId)).length;
+    const percent = Math.round((completedCount / this.totalModules) * 100);
     const fullName = `${this.profile.firstName || ''} ${this.profile.lastName || ''}`.trim();
 
     if (avatar) avatar.textContent = this.profile.avatar || '🙂';
