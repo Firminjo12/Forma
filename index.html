@@ -28,6 +28,9 @@
         <button class="btn btn-outline btn-sm" id="auth-signout-btn" type="button" hidden>
           Déconnexion
         </button>
+        <button class="btn btn-outline btn-sm" data-target-section="admin" id="admin-nav-link" type="button" hidden>
+          Administration
+        </button>
         <button class="profile-trigger" id="profile-open-btn" type="button" aria-haspopup="dialog" aria-controls="profile-dialog">
           <span class="profile-avatar" id="profile-nav-avatar" aria-hidden="true">🙂</span>
           <span id="profile-nav-name">Mon profil</span>
@@ -203,12 +206,6 @@
       <div class="sidebar-course-nav" data-course-navigation="shared">
         <div class="sidebar-title">Ressources</div>
         <ul class="module-nav-list">
-          <li>
-            <a class="module-link" data-target-section="admin" id="admin-nav-link" hidden>
-              <span class="module-icon">🛡️</span>
-              <span>Administration</span>
-            </a>
-          </li>
           <li>
             <a class="module-link" data-target-section="certificat">
               <span class="module-icon">🎓</span>
